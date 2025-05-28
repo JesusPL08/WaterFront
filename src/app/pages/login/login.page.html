@@ -1,0 +1,31 @@
+<div class="login-wrapper">
+  <div class="background"></div>
+
+  <div class="login-box">
+    <div class="icon-circle">
+      <img src="assets/man.png" alt="user" />
+    </div>
+
+    <h2>Login</h2>
+<div *ngIf="mensaje" class="mensaje" [ngClass]="{ error: esError, exito: !esError }">
+  {{ mensaje }}
+</div>
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <div class="input-group">
+        <span class="icon">👤</span>
+        <input type="text" placeholder="Account" formControlName="user" />
+      </div>
+
+      <div class="input-group">
+        <span class="icon">🔒</span>
+        <input type="password" placeholder="Password" formControlName="password" />
+      </div>
+
+      <button type="submit">ACCEDER</button>
+
+      <div class="options">
+
+      </div>
+    </form>
+  </div>
+</div>

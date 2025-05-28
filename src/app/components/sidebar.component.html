@@ -1,0 +1,31 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="logo-section" *ngIf="!isCollapsed">
+    <img src="assets/man.png" alt="Logo" class="logo" />
+    <h2>AquaAzul</h2>
+  </div>
+
+  <div class="menu-scrollable">
+    <nav class="menu">
+      <a routerLink="/dashboard" routerLinkActive="active" [title]="'Inicio'">
+        <span>🏠</span><span *ngIf="!isCollapsed">Inicio</span>
+      </a>
+      <a routerLink="/usuarios" routerLinkActive="active" [title]="'Usuarios'">
+        <span>👥</span><span *ngIf="!isCollapsed">Usuarios</span>
+      </a>
+      <a routerLink="/reportes" routerLinkActive="active" [title]="'Reportes'">
+        <span>📊</span><span *ngIf="!isCollapsed">Reportes</span>
+      </a>
+      <a routerLink="/ajustes" routerLinkActive="active" [title]="'Ajustes'">
+        <span>⚙️</span><span *ngIf="!isCollapsed">Ajustes</span>
+      </a>
+      <button (click)="logout()" [title]="'Cerrar sesión'">
+        <span>🔓</span><span *ngIf="!isCollapsed">Cerrar sesión</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="toggle-btn-modern" (click)="toggleSidebar()">
+    <span *ngIf="isCollapsed">☰</span>
+    <span *ngIf="!isCollapsed">✖</span>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css?family=Exo:100");
+
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Exo', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.dashboard-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background: url("data:image/png;base64,...") repeat 0 0;
+  animation: bg-scrolling-reverse 0.92s infinite linear;
+}
+
+@keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
