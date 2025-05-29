@@ -18,6 +18,9 @@
       <a routerLink="/ajustes" routerLinkActive="active" [title]="'Ajustes'">
         <span>⚙️</span><span *ngIf="!isCollapsed">Ajustes</span>
       </a>
+      <a routerLink="/configuracion" routerLinkActive="active" [title]="'Alta y Configuración'">
+        <span>🧰</span><span *ngIf="!isCollapsed">Alta y Configuración</span>
+      </a>
       <button (click)="logout()" [title]="'Cerrar sesión'">
         <span>🔓</span><span *ngIf="!isCollapsed">Cerrar sesión</span>
       </button>

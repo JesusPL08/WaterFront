@@ -1,0 +1,52 @@
+<div class="modal-content">
+  <h2>Crear Usuario</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input formControlName="name" />
+    </div>
+    <div class="form-group">
+      <label>Teléfono</label>
+      <input formControlName="phoneNumber" type="tel" />
+    </div>
+    <div class="form-group">
+      <label>RFC</label>
+      <input formControlName="rfc" />
+    </div>
+    <div class="form-group">
+      <label>Perfil</label>
+      <select formControlName="profileId">
+        <option *ngFor="let p of profiles" [value]="p.id">{{ p.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Sueldo</label>
+      <select formControlName="salaryId">
+        <option *ngFor="let s of salaries" [value]="s.id">{{ s.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Fecha de Contratación</label>
+      <input type="date" formControlName="hiringDate" />
+    </div>
+    <div class="form-group">
+      <label>Sucursal</label>
+      <select formControlName="branchId">
+        <option value="">No asignada</option>
+        <option *ngFor="let b of branches" [value]="b.id">{{ b.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Usuario</label>
+      <input formControlName="user" />
+    </div>
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input type="password" formControlName="password" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="form.invalid">Guardar</button>
+    </div>
+  </form>
+</div>

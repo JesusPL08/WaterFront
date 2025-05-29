@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css?family=Exo:100");
+
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Exo', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  margin-left: 220px;
+  padding: 2rem;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.dashboard-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.dashboard-card {
+  background-color: #f5f5f5;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 1200px;
+}
+
+.dashboard-title {
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.routes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+
+  th, td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+
+  th {
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: 600;
+  }
+
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+}
+.dashboard-title-with-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.add-user-btn {
+  background-color: #00796b;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #005f56;
+  }
+}

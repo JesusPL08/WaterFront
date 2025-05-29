@@ -1,5 +1,39 @@
 <app-sidebar></app-sidebar>
 
 <div class="main-content">
-  <router-outlet></router-outlet>
+  <div class="dashboard-wrapper">
+    <div class="dashboard-card">
+      <h2 class="dashboard-title">Panel de control</h2>
+      <div class="dashboard-cards">
+        <div class="mini-card">
+          <h3>Rutas del día</h3>
+          <table class="routes-table">
+            <thead>
+              <tr>
+                <th>Sucursal</th>
+                <th>Volumen</th>
+                <th>Prioridad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let route of todayRoutes">
+                <td>{{ route.branchName }}</td>
+                <td>{{ route.volume }}</td>
+                <td>{{ route.priority }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mini-card">
+          <h3>Usuarios activos</h3>
+          <ul class="user-list">
+            <li *ngFor="let user of users">
+              <span class="dot" [class.green]="user.presentToday" [class.red]="!user.presentToday"></span>
+              {{ user.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
