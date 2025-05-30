@@ -1,37 +1,40 @@
 <app-sidebar></app-sidebar>
 
-<div class="main-content">
-  <div class="dashboard-wrapper">
-    <div class="dashboard-card">
-        <div class="dashboard-title-with-button">
-        <h2 class="dashboard-title">Usuarios Registrados</h2>
-        <button class="add-user-btn" (click)="abrirModal()">+ Agregar Usuario</button>
-      </div>
-      <div class="table-responsive">
-        <table class="routes-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>RFC</th>
-              <th>Usuario</th>
-              <th>Teléfono</th>
-              <th>Sucursal</th>
-              <th>Fecha de Contratación</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of usuarios">
-              <td>{{ user.name }}</td>
-              <td>{{ user.rfc }}</td>
-              <td>{{ user.user }}</td>
-              <td>{{ user.phoneNumber }}</td>
-              <td>{{ user.branchId || 'No asignada' }}</td>
-              <td>{{ user.hiringDate | date:'mediumDate' }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="main-content container mt-4">
+  <div class="dashboard-card">
+    <div class="dashboard-title-with-button">
+      <h4 class="dashboard-title mb-0">Usuarios Registrados</h4>
+      <button class="add-user-btn" (click)="abrirModal()">+ Agregar Usuario</button>
+    </div>
 
+    <div class="table-responsive">
+      <table class="routes-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>RFC</th>
+            <th>Usuario</th>
+            <th>Teléfono</th>
+            <th>Sucursal</th>
+            <th>Fecha de Contratación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of usuarios">
+            <td>{{ user.name }}</td>
+            <td>{{ user.rfc }}</td>
+            <td>{{ user.user }}</td>
+            <td>{{ user.phoneNumber }}</td>
+            <td>{{ getBranchName(user.branchId) }}</td>
+            <td>{{ user.hiringDate | date:'mediumDate' }}</td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="abrirModal(user)">Editar</button>
+              <button class="btn btn-sm btn-danger" (click)="eliminarUsuario(user)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

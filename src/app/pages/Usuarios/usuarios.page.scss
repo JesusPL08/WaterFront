@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Exo:100");
+@import '../../../styles/variables.scss';
 
 :host {
   display: block;
@@ -9,13 +10,39 @@
   position: relative;
 }
 
+// Fondo animado
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background: url("data:image/png;base64,...") repeat 0 0; // ⚠️ Reemplaza por tu base64 real
+  animation: bg-scrolling-reverse 0.92s infinite linear;
+}
+
+@keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+// Contenido principal con sidebar
 .main-content {
-  margin-left: 220px;
+  margin-left: 220px; // espacio para sidebar
   padding: 2rem;
   height: 100vh;
   overflow-y: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
+// Centrado y padding interno
 .dashboard-wrapper {
   display: flex;
   align-items: center;
@@ -25,8 +52,9 @@
   box-sizing: border-box;
 }
 
+// Tarjeta principal
 .dashboard-card {
-  background-color: #f5f5f5;
+  background-color: $background-table-color;
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -34,39 +62,15 @@
   max-width: 1200px;
 }
 
+// Título principal
 .dashboard-title {
   margin-bottom: 2rem;
   font-size: 1.8rem;
   font-weight: 600;
-  color: #333;
+  color: $primary-color;
 }
 
-.table-responsive {
-  overflow-x: auto;
-}
-
-.routes-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-
-  th, td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-    font-size: 0.95rem;
-  }
-
-  th {
-    background-color: #f0f0f0;
-    color: #333;
-    font-weight: 600;
-  }
-
-  tr:hover {
-    background-color: #f9f9f9;
-  }
-}
+// Botón al lado del título
 .dashboard-title-with-button {
   display: flex;
   justify-content: space-between;
@@ -74,8 +78,9 @@
   margin-bottom: 2rem;
 }
 
+// Botón personalizado
 .add-user-btn {
-  background-color: #00796b;
+  background-color: $primary-color;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -85,6 +90,123 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #005f56;
+    background-color: $primary-color;
+  }
+}
+
+// Tabla responsive
+.table-responsive {
+  overflow-x: auto;
+}
+
+// Tabla tipo tarjeta por fila
+.routes-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+
+  th, td {
+    padding: 0.9rem 1rem;
+    background-color: #ffffff;
+    border-bottom: none;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+  }
+
+  th {
+    background-color: #e0e0e0;
+    color: $primary-color;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  tbody tr {
+    transition: background-color 0.3s ease;
+  }
+
+  tbody tr:hover {
+    background-color: #f0f9f7;
+  }
+
+  td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+}
+
+// Botones de acción
+button.btn-sm {
+  margin-right: 0.5rem;
+}
+
+// Múltiples tarjetas pequeñas
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+// Tarjeta mini (si quieres mostrar usuarios por estatus o stats)
+.mini-card {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex: 1 1 45%;
+  min-height: 120px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.mini-card:hover {
+  transform: translateY(-5px);
+}
+
+.mini-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: #00796b;
+}
+
+.mini-card p {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+// Lista de usuarios con puntos de estado
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .green {
+    background-color: #4caf50;
+  }
+
+  .red {
+    background-color: #f44336;
   }
 }

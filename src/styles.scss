@@ -1,4 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap');
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Global styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Exo', sans-serif;
+  font-weight: 400;
+  color: #333;
+  background-color: #d4d4d4;
+}

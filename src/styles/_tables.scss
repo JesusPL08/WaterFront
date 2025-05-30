@@ -1,3 +1,9 @@
+::ng-deep .custom-dialog .mat-dialog-container {
+  padding: 2rem;
+  border-radius: 16px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
 :host {
   display: block;
   background-color: #fff;
@@ -6,13 +12,13 @@
   width: 100%;
   max-width: 800px;
   margin: auto;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); // 🔥 fuerza 3 columnas
-  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
   width: 100%;
 }
 

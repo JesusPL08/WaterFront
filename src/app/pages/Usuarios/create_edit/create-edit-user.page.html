@@ -1,52 +1,65 @@
-<div class="modal-content">
-  <h2>Crear Usuario</h2>
+<div class="modal-content p-4">
+ <h4 class="mb-4">{{ isEditMode ? 'Editar Usuario' : 'Crear Usuario' }}</h4>
+
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-group">
-      <label>Nombre</label>
-      <input formControlName="name" />
-    </div>
-    <div class="form-group">
-      <label>Teléfono</label>
-      <input formControlName="phoneNumber" type="tel" />
-    </div>
-    <div class="form-group">
-      <label>RFC</label>
-      <input formControlName="rfc" />
-    </div>
-    <div class="form-group">
-      <label>Perfil</label>
-      <select formControlName="profileId">
-        <option *ngFor="let p of profiles" [value]="p.id">{{ p.name }}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Sueldo</label>
-      <select formControlName="salaryId">
-        <option *ngFor="let s of salaries" [value]="s.id">{{ s.name }}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Fecha de Contratación</label>
-      <input type="date" formControlName="hiringDate" />
-    </div>
-    <div class="form-group">
-      <label>Sucursal</label>
-      <select formControlName="branchId">
-        <option value="">No asignada</option>
-        <option *ngFor="let b of branches" [value]="b.id">{{ b.name }}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Usuario</label>
-      <input formControlName="user" />
-    </div>
-    <div class="form-group">
-      <label>Contraseña</label>
-      <input type="password" formControlName="password" />
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" formControlName="name" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Teléfono</label>
+        <input type="tel" class="form-control" formControlName="phoneNumber" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">RFC</label>
+        <input type="text" class="form-control" formControlName="rfc" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Perfil</label>
+        <select class="form-select" formControlName="profileId">
+          <option value="" disabled selected>Selecciona un perfil</option>
+          <option *ngFor="let p of profiles" [value]="p.id">{{ p.name }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Sueldo</label>
+        <select class="form-select" formControlName="salaryId">
+          <option value="" disabled selected>Selecciona un sueldo</option>
+          <option *ngFor="let s of salaries" [value]="s.id">{{ s.name }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Fecha de Contratación</label>
+        <input type="date" class="form-control" formControlName="hiringDate" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Sucursal</label>
+        <select class="form-select" formControlName="branchId">
+          <option value="">No asignada</option>
+          <option *ngFor="let b of branches" [value]="b.id">{{ b.name }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Usuario</label>
+        <input type="text" class="form-control" formControlName="user" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-control" formControlName="password" />
+      </div>
     </div>
 
-    <div class="form-actions">
-      <button type="submit" [disabled]="form.invalid">Guardarr</button>
+    <div class="d-flex justify-content-end mt-4">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar</button>
     </div>
   </form>
 </div>

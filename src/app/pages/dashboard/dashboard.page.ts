@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SidebarComponent } from '../../components/sidebar.component';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { RouteService } from '../../services/route.service';
 import { BranchService } from '../../services/branch.service';
 import { Route } from '../../models/route.model';

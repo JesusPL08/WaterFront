@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Exo:100");
-
+@import '../../../styles/variables.scss';
 :host {
   display: block;
   height: 100vh;
@@ -62,10 +62,11 @@
   transform: translateY(-5px);
 }
 
+
 .mini-card h3 {
   margin: 0 0 0.5rem;
   font-size: 1.2rem;
-  color: #00796b;
+  color: $primary-color;
 }
 
 .mini-card p {
