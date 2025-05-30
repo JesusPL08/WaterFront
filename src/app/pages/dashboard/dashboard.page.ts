@@ -32,10 +32,13 @@ export class DashboardPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-        this.loadBranchesAndRoutes();
+    this.loadBranchesAndRoutes();
     this.loadUsersWithAttendance();
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    this.branchservicenew();
+  }
 
+  branchservicenew(){
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
     this.branchService.getAllBranches().subscribe(branches => {
       this.branches = branches;
 
@@ -49,7 +52,8 @@ export class DashboardPage implements OnInit {
       });
     });
   }
-   loadBranchesAndRoutes() {
+
+  loadBranchesAndRoutes() {
     this.branchService.getAllBranches().subscribe(branches => {
       this.branches = branches;
       this.routeService.getAll().subscribe(routes => {
