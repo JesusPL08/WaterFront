@@ -7,6 +7,8 @@ import { ProfileService } from '../../../services/profile.service';
 import { SalaryService } from '../../../services/salary.service';
 import { BranchService } from '../../../services/branch.service';
 import { UserService } from '../../../services/user.service';
+import { LoginService } from '../../../services/login.service';
+import { Login } from '../../../models/login.models';
 
 import { Profile } from '../../../models/profile.model';
 import { Salary } from '../../../models/salary.model';
@@ -28,10 +30,12 @@ export class CreateEditUserPage implements OnInit {
   salaries: Salary[] = [];
   branches: Branch[] = [];
   isEditMode: boolean = false;
+  loginUser: string = '';
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private loginService: LoginService,
     private profileService: ProfileService,
     private salaryService: SalaryService,
     private branchService: BranchService,
@@ -40,14 +44,14 @@ export class CreateEditUserPage implements OnInit {
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       rfc: ['', Validators.required],
       profileId: [null, Validators.required],
       salaryId: [null, Validators.required],
       hiringDate: ['', Validators.required],
       branchId: [null],
       user: ['', Validators.required],
-      password: [''] // se marca requerida solo si no es edición
+      password: ['']
     });
   }
 
@@ -57,23 +61,34 @@ export class CreateEditUserPage implements OnInit {
     if (this.data) {
       this.isEditMode = true;
 
-      // Precarga datos en el formulario
       this.form.patchValue({
         name: this.data.name,
         phoneNumber: this.data.phoneNumber,
         rfc: this.data.rfc,
         profileId: this.data.profileId,
         salaryId: this.data.salaryId,
-        hiringDate: this.data.hiringDate,
-        branchId: this.data.branchId,
-        user: this.data.user
+        hiringDate: this.data.hiringDate
+          ? new Date(this.data.hiringDate).toISOString().split('T')[0]
+          : '',
+        branchId: this.data.branchId
       });
 
-      // Elimina validación de contraseña si es edición
+      // Obtener login del usuario
+      this.loginService.getByUserId(this.data.id!).subscribe({
+        next: (login: Login) => {
+          this.loginUser = login.user;
+          this.form.patchValue({ user: login.user });
+          this.form.get('user')?.disable(); // usuario no editable en edición
+        },
+        error: () => {
+          console.warn('No se pudo cargar el login');
+          this.form.get('user')?.disable();
+        }
+      });
+
       this.form.get('password')?.clearValidators();
       this.form.get('password')?.updateValueAndValidity();
     } else {
-      // Si es creación, la contraseña es obligatoria
       this.form.get('password')?.setValidators(Validators.required);
       this.form.get('password')?.updateValueAndValidity();
     }
@@ -86,37 +101,63 @@ export class CreateEditUserPage implements OnInit {
   }
 
   submit() {
-  if (this.form.invalid) return;
+    if (this.form.invalid) return;
 
-  const raw = this.form.value;
+    const raw = this.form.getRawValue();
 
-  const payload = {
-    name: raw.name,
-    phoneNumber: raw.phoneNumber,
-    rfc: raw.rfc,
-    profileId: Number(raw.profileId),
-    salaryId: Number(raw.salaryId),
-    hiringDate: new Date(raw.hiringDate).toISOString(),
-    branchId: raw.branchId ? Number(raw.branchId) : null,
-    user: raw.user,
-    password: raw.password
-  };
+    const userPayload = {
+      name: String(raw.name),
+      phoneNumber: String(raw.phoneNumber),
+      rfc: String(raw.rfc),
+      profileId: parseInt(raw.profileId, 10),
+      salaryId: parseInt(raw.salaryId, 10),
+      hiringDate: new Date(raw.hiringDate).toISOString(),
+      branchId: raw.branchId ? parseInt(raw.branchId, 10) : null
+    };
 
-  const request = this.isEditMode && this.data?.id
-    ? this.userService.updateUser(this.data.id, payload)
-    : this.userService.createUser(payload);
+    const loginPayload = {
+      user: this.isEditMode ? this.loginUser : String(raw.user),
+      password: String(raw.password),
+      userId: 0
+    };
 
-  request.subscribe({
-    next: () => {
-      alert(this.isEditMode ? 'Usuario actualizado con éxito' : 'Usuario creado con éxito');
-      this.dialogRef.close(true);
-    },
-    error: (err) => {
-      const msg = err?.error?.message || 'Error al guardar el usuario';
-      alert(Array.isArray(msg) ? msg.join('\n') : msg);
+    if (this.isEditMode && this.data?.id) {
+      this.userService.updateUser(this.data.id, userPayload).subscribe({
+        next: () => {
+          if (loginPayload.password?.trim()) {
+            this.loginService.updatePasswordByUserId(this.data!.id!, loginPayload.password).subscribe({
+              next: () => {
+                alert('Usuario actualizado con nueva contraseña');
+                this.dialogRef.close(true);
+              },
+              error: () => alert('Error al actualizar contraseña')
+            });
+          } else {
+            alert('Usuario actualizado con éxito');
+            this.dialogRef.close(true);
+          }
+        },
+        error: () => alert('Error al actualizar usuario')
+      });
+    } else {
+      this.userService.createUser(userPayload).subscribe({
+        next: (createdUser) => {
+          this.loginService.create({
+            ...loginPayload,
+            userId: createdUser.id!
+          }).subscribe({
+            next: () => {
+              alert('Usuario creado con éxito');
+              this.dialogRef.close(true);
+            },
+            error: () => alert('Usuario creado, pero error al crear login')
+          });
+        },
+        error: (err) => {
+          console.error('Error al crear usuario', err);
+          alert('Error al crear usuario');
+        }
+      });
     }
-  });
-}
-
-
+  }
 }

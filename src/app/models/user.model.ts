@@ -7,8 +7,6 @@ export interface User {
   salaryId: number;
   hiringDate: string; // ISO format
   branchId: number | null;
-  user: string;
-  password: string;
   createdAt?: string;
   updatedAt?: string;
 }

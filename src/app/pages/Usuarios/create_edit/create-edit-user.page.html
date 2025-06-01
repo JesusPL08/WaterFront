@@ -1,5 +1,5 @@
 <div class="modal-content p-4">
- <h4 class="mb-4">{{ isEditMode ? 'Editar Usuario' : 'Crear Usuario' }}</h4>
+  <h4 class="mb-4">{{ isEditMode ? 'Editar Usuario' : 'Crear Usuario' }}</h4>
 
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="row g-3">
@@ -10,7 +10,13 @@
 
       <div class="col-md-6">
         <label class="form-label">Teléfono</label>
-        <input type="tel" class="form-control" formControlName="phoneNumber" />
+        <input
+          type="tel"
+          class="form-control"
+          formControlName="phoneNumber"
+          inputmode="numeric"
+          pattern="[0-9]*"
+        />
       </div>
 
       <div class="col-md-6">
@@ -49,7 +55,12 @@
 
       <div class="col-md-6">
         <label class="form-label">Usuario</label>
-        <input type="text" class="form-control" formControlName="user" />
+        <input
+          type="text"
+          class="form-control"
+          formControlName="user"
+          [readonly]="isEditMode"
+        />
       </div>
 
       <div class="col-md-6">

@@ -13,7 +13,6 @@
           <tr>
             <th>Nombre</th>
             <th>RFC</th>
-            <th>Usuario</th>
             <th>Teléfono</th>
             <th>Sucursal</th>
             <th>Fecha de Contratación</th>
@@ -24,7 +23,6 @@
           <tr *ngFor="let user of usuarios">
             <td>{{ user.name }}</td>
             <td>{{ user.rfc }}</td>
-            <td>{{ user.user }}</td>
             <td>{{ user.phoneNumber }}</td>
             <td>{{ getBranchName(user.branchId) }}</td>
             <td>{{ user.hiringDate | date:'mediumDate' }}</td>
