@@ -7,6 +7,7 @@ import { UserService } from '../../services/user.service';
 import { BranchService } from '../../services/branch.service';
 
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { TableComponent } from '../../shared/components/table/table.component';
 import { CreateEditUserPage } from './create_edit/create-edit-user.page';
 
 import { User } from '../../models/user.model';
@@ -15,12 +16,17 @@ import { Branch } from '../../models/branch.model';
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [SidebarComponent, CommonModule, RouterModule],
+  imports: [
+    SidebarComponent,
+    CommonModule,
+    RouterModule,
+    TableComponent
+  ],
   templateUrl: './usuarios.page.html',
   styleUrls: ['./usuarios.page.scss']
 })
 export class UsuariosPage implements OnInit {
-  usuarios: User[] = [];
+  usuarios: any[] = [];
   branches: Branch[] = [];
 
   constructor(
@@ -36,7 +42,13 @@ export class UsuariosPage implements OnInit {
 
   cargarUsuarios() {
     this.userService.getAllUsers().subscribe({
-      next: users => this.usuarios = users,
+      next: users => {
+        this.usuarios = users.map(user => ({
+          ...user,
+          branchName: this.getBranchName(user.branchId),
+          hiringDateFormatted: new Date(user.hiringDate).toLocaleDateString()
+        }));
+      },
       error: err => console.error('Error al obtener usuarios', err)
     });
   }

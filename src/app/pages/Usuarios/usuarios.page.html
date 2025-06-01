@@ -7,32 +7,16 @@
       <button class="add-user-btn" (click)="abrirModal()">+ Agregar Usuario</button>
     </div>
 
-    <div class="table-responsive">
-      <table class="routes-table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>RFC</th>
-            <th>Teléfono</th>
-            <th>Sucursal</th>
-            <th>Fecha de Contratación</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of usuarios">
-            <td>{{ user.name }}</td>
-            <td>{{ user.rfc }}</td>
-            <td>{{ user.phoneNumber }}</td>
-            <td>{{ getBranchName(user.branchId) }}</td>
-            <td>{{ user.hiringDate | date:'mediumDate' }}</td>
-            <td>
-              <button class="btn btn-sm btn-warning me-2" (click)="abrirModal(user)">Editar</button>
-              <button class="btn btn-sm btn-danger" (click)="eliminarUsuario(user)">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <app-table
+      [headers]="['Nombre', 'RFC', 'Teléfono', 'Sucursal', 'Contratación']"
+      [rows]="usuarios"
+      [keys]="['name', 'rfc', 'phoneNumber', 'branchName', 'hiringDateFormatted']"
+      [actionsTemplate]="accionesTemplate">
+    </app-table>
+
+    <ng-template #accionesTemplate let-user>
+      <button class="btn btn-sm btn-warning me-2" (click)="abrirModal(user)">Editar</button>
+      <button class="btn btn-sm btn-danger" (click)="eliminarUsuario(user)">Eliminar</button>
+    </ng-template>
   </div>
 </div>

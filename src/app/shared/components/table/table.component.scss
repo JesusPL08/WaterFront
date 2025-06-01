@@ -1,0 +1,45 @@
+@import '../../../../styles/variables';
+.table-responsive {
+  overflow-x: auto;
+}
+
+.routes-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+
+  th, td {
+    padding: 0.9rem 1rem;
+    background-color: $background-table-color;
+    border-bottom: none;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+  }
+
+  th {
+    background-color: $background-table-color;
+    color: $primary-color;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  tbody tr {
+    transition: background-color 0.3s ease;
+  }
+
+  tbody tr:hover {
+    background-color:$background-table-color;
+  }
+
+  td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+}

@@ -1,0 +1,38 @@
+<div class="form-group mb-3">
+  <label>{{ label }}</label>
+
+  <!-- Input texto / número / password -->
+  <input *ngIf="type === 'text' || type === 'number' || type === 'password'"
+         [type]="type"
+         [formControl]="control"
+         [readonly]="readonly"
+         [placeholder]="placeholder"
+         class="form-control form-control-sm" />
+
+  <!-- Textarea -->
+  <textarea *ngIf="type === 'textarea'"
+            [formControl]="control"
+            [placeholder]="placeholder"
+            class="form-control form-control-sm"></textarea>
+
+  <!-- Select -->
+  <select *ngIf="type === 'select'"
+          [formControl]="control"
+          class="form-select form-select-sm">
+    <option [ngValue]="null">{{ placeholder }}</option>
+    <option *ngFor="let opt of options" [ngValue]="opt.value">
+      {{ opt.label }}
+    </option>
+  </select>
+
+  <!-- Fecha -->
+  <input *ngIf="type === 'date'"
+         type="date"
+         [formControl]="control"
+         class="form-control form-control-sm" />
+
+  <!-- Validación -->
+  <div *ngIf="control?.invalid && control?.touched" class="text-danger mt-1">
+    Campo requerido o inválido
+  </div>
+</div>

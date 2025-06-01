@@ -1,0 +1,29 @@
+<div class="modal-content p-4">
+  <h4 class="mb-4">{{ isEditMode ? 'Editar Cliente' : 'Crear Cliente' }}</h4>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <app-form-field
+          label="Nombre del cliente"
+          [control]="getSafeControl('name')"
+          type="text">
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field
+          label="Dirección"
+          [control]="getSafeControl('address')"
+          type="text">
+        </app-form-field>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

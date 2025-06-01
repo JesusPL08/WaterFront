@@ -14,16 +14,24 @@ import { Profile } from '../../../models/profile.model';
 import { Salary } from '../../../models/salary.model';
 import { Branch } from '../../../models/branch.model';
 import { User } from '../../../models/user.model';
+import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { FormControl } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-edit-user',
   standalone: true,
-  imports: [CommonModule, IonicModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    ReactiveFormsModule,
+    FormFieldComponent  // ✅ Añadir aquí
+  ],
   templateUrl: './create-edit-user.page.html',
   styleUrls: ['./create-edit-user.page.scss']
 })
+
 export class CreateEditUserPage implements OnInit {
   form: FormGroup;
   profiles: Profile[] = [];
@@ -99,6 +107,20 @@ export class CreateEditUserPage implements OnInit {
     this.salaryService.getAll().subscribe(s => this.salaries = s);
     this.branchService.getAllBranches().subscribe(b => this.branches = b);
   }
+getSafeControl(name: string): FormControl {
+  return (this.form.get(name) as FormControl) ?? new FormControl();
+}
+get profileOptions() {
+  return this.profiles.map(p => ({ label: p.name, value: p.id }));
+}
+
+get salaryOptions() {
+  return this.salaries.map(s => ({ label: s.name, value: s.id }));
+}
+
+get branchOptions() {
+  return this.branches.map(b => ({ label: b.name, value: b.id }));
+}
 
   submit() {
     if (this.form.invalid) return;

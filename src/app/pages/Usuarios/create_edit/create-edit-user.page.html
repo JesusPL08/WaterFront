@@ -1,72 +1,87 @@
 <div class="modal-content p-4">
   <h4 class="mb-4">{{ isEditMode ? 'Editar Usuario' : 'Crear Usuario' }}</h4>
-
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="row g-3">
+
       <div class="col-md-6">
-        <label class="form-label">Nombre</label>
-        <input type="text" class="form-control" formControlName="name" />
+        <app-form-field
+          label="Nombre"
+          [control]="getSafeControl('name')"
+          type="text">
+        </app-form-field>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Teléfono</label>
-        <input
-          type="tel"
-          class="form-control"
-          formControlName="phoneNumber"
-          inputmode="numeric"
-          pattern="[0-9]*"
-        />
+        <app-form-field
+          label="Teléfono"
+          [control]="getSafeControl('phoneNumber')"
+          type="text">
+        </app-form-field>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">RFC</label>
-        <input type="text" class="form-control" formControlName="rfc" />
+        <app-form-field
+          label="RFC"
+          [control]="getSafeControl('rfc')"
+          type="text">
+        </app-form-field>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Perfil</label>
-        <select class="form-select" formControlName="profileId">
-          <option value="" disabled selected>Selecciona un perfil</option>
-          <option *ngFor="let p of profiles" [value]="p.id">{{ p.name }}</option>
-        </select>
+        <app-form-field
+          label="Perfil"
+          [control]="getSafeControl('profileId')"
+          type="select"
+          [options]="profileOptions"
+          placeholder="Selecciona un perfil">
+        </app-form-field>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Sueldo</label>
-        <select class="form-select" formControlName="salaryId">
-          <option value="" disabled selected>Selecciona un sueldo</option>
-          <option *ngFor="let s of salaries" [value]="s.id">{{ s.name }}</option>
-        </select>
+        <app-form-field
+          label="Sueldo"
+          [control]="getSafeControl('salaryId')"
+          type="select"
+          [options]="salaryOptions"
+          placeholder="Selecciona un sueldo">
+        </app-form-field>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Fecha de Contratación</label>
-        <input type="date" class="form-control" formControlName="hiringDate" />
+        <app-form-field
+          label="Fecha de Contratación"
+          [control]="getSafeControl('hiringDate')"
+          type="date">
+        </app-form-field>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Sucursal</label>
-        <select class="form-select" formControlName="branchId">
-          <option value="">No asignada</option>
-          <option *ngFor="let b of branches" [value]="b.id">{{ b.name }}</option>
-        </select>
+        <app-form-field
+          label="Sucursal"
+          [control]="getSafeControl('branchId')"
+          type="select"
+          [options]="branchOptions"
+          placeholder="No asignada">
+        </app-form-field>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Usuario</label>
-        <input
+        <app-form-field
+          label="Usuario"
+          [control]="getSafeControl('user')"
           type="text"
-          class="form-control"
-          formControlName="user"
-          [readonly]="isEditMode"
-        />
+          [readonly]="isEditMode">
+        </app-form-field>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Contraseña</label>
-        <input type="password" class="form-control" formControlName="password" />
+        <app-form-field
+          label="Contraseña"
+          [control]="getSafeControl('password')"
+          type="password">
+        </app-form-field>
       </div>
+
     </div>
 
     <div class="d-flex justify-content-end mt-4">
