@@ -1,0 +1,51 @@
+<div class="modal-content p-4">
+  <h4 class="mb-4">{{ isEditMode ? 'Editar Sucursal' : 'Crear Sucursal' }}</h4>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <app-form-field label="Nombre" [control]="getSafeControl('name')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="Dirección" [control]="getSafeControl('address')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="Teléfono" [control]="getSafeControl('phoneNumber')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="Encargado" [control]="getSafeControl('manager')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="Precio de venta" [control]="getSafeControl('salePrice')" type="number"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="Razón Social" [control]="getSafeControl('razonSocial')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="RFC" [control]="getSafeControl('rfc')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="Régimen Fiscal" [control]="getSafeControl('regimenFiscal')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="Código Postal" [control]="getSafeControl('codigoPostal')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="Uso CFDI" [control]="getSafeControl('usoCfdi')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-12">
+        <app-form-field
+          label="Cliente"
+          [control]="getSafeControl('clientId')"
+          type="select"
+          [options]="clienteOptions"
+          placeholder="Selecciona un cliente">
+        </app-form-field>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar</button>
+    </div>
+  </form>
+</div>
