@@ -1,0 +1,22 @@
+<app-sidebar></app-sidebar>
+
+<div class="main-content container mt-4">
+  <div class="dashboard-card">
+    <div class="dashboard-title-with-button">
+      <h4 class="dashboard-title mb-0">Tipos de Asistencia Registrados</h4>
+      <button class="add-user-btn" (click)="abrirModal()">+ Agregar Tipo</button>
+    </div>
+
+    <app-table
+      [headers]="['Nombre', 'Día Pagado', 'Valor por día']"
+      [rows]="tiposAsistencia"
+      [keys]="['name', 'paid_day', 'pay_mult']"
+      [actionsTemplate]="accionesTemplate">
+    </app-table>
+
+    <ng-template #accionesTemplate let-item>
+      <button class="btn btn-sm btn-warning me-2" (click)="abrirModal(item)">Editar</button>
+      <button class="btn btn-sm btn-danger" (click)="eliminar(item)">Eliminar</button>
+    </ng-template>
+  </div>
+</div>

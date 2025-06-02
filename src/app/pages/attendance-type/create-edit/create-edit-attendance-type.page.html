@@ -1,0 +1,27 @@
+<div class="modal-content p-4">
+  <h4 class="mb-4">{{ isEditMode ? 'Editar Tipo de Asistencia' : 'Crear Tipo de Asistencia' }}</h4>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <app-form-field label="Nombre" [control]="getSafeControl('name')" type="text"></app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field
+          label="¿Es día pagado?"
+          [control]="getSafeControl('paidDay')"
+          type="select"
+          [options]="booleanOptions"
+          placeholder="Selecciona una opción">
+        </app-form-field>
+      </div>
+      <div class="col-md-6">
+        <app-form-field label="Multiplicador de pago" [control]="getSafeControl('payMult')" type="number"></app-form-field>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar</button>
+    </div>
+  </form>
+</div>

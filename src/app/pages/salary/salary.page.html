@@ -1,0 +1,22 @@
+<app-sidebar></app-sidebar>
+
+<div class="main-content container mt-4">
+  <div class="dashboard-card">
+    <div class="dashboard-title-with-button">
+      <h4 class="dashboard-title mb-0">Salarios Registrados</h4>
+      <button class="add-user-btn" (click)="abrirModal()">+ Agregar Salario</button>
+    </div>
+
+    <app-table
+      [headers]="['Nombre', 'Tarifa Base', 'Creado']"
+      [rows]="salarios"
+      [keys]="['name', 'baseRate', 'createdAtFormatted']"
+      [actionsTemplate]="accionesTemplate">
+    </app-table>
+
+    <ng-template #accionesTemplate let-salary>
+      <button class="btn btn-sm btn-warning me-2" (click)="abrirModal(salary)">Editar</button>
+      <button class="btn btn-sm btn-danger" (click)="eliminarSalario(salary)">Eliminar</button>
+    </ng-template>
+  </div>
+</div>
