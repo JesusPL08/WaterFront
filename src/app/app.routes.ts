@@ -36,6 +36,10 @@ export const routes: Routes = [
   {
   path: 'Attendance-type',
   loadComponent: () => import('./pages/attendance-type/attendance-type.page').then(m => m.AttendanceTypePage)
+  },
+    {
+  path: 'Employee',
+  loadComponent: () => import('./pages/user-dashboard/user-dashboard.page').then(m => m.UserDashboardComponent)
   }
 
 ];

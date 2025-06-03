@@ -1,18 +1,3 @@
-import "./chunk-WDTSS4TR.js";
-import "./chunk-RF63HFJA.js";
-import {
-  LIFECYCLE_DID_ENTER,
-  LIFECYCLE_DID_LEAVE,
-  LIFECYCLE_WILL_ENTER,
-  LIFECYCLE_WILL_LEAVE,
-  LIFECYCLE_WILL_UNLOAD,
-  componentOnReady,
-  config,
-  createAnimation,
-  doc,
-  getMode,
-  printIonWarning
-} from "./chunk-KVRAGKY2.js";
 import {
   iosTransitionAnimation
 } from "./chunk-5APOKNA7.js";
@@ -33,13 +18,28 @@ import {
   saveConfig,
   setMode
 } from "./chunk-CHKVIRUB.js";
+import "./chunk-WDTSS4TR.js";
+import "./chunk-RF63HFJA.js";
+import {
+  LIFECYCLE_DID_ENTER,
+  LIFECYCLE_DID_LEAVE,
+  LIFECYCLE_WILL_ENTER,
+  LIFECYCLE_WILL_LEAVE,
+  LIFECYCLE_WILL_UNLOAD,
+  componentOnReady,
+  config,
+  createAnimation,
+  doc,
+  getMode,
+  printIonWarning
+} from "./chunk-KVRAGKY2.js";
 import {
   MaxValidator,
   MinValidator,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   NgControl
-} from "./chunk-XQTIFLZS.js";
+} from "./chunk-7I6NVVYE.js";
 import {
   ActivatedRoute,
   ChildrenOutletContexts,
@@ -48,20 +48,20 @@ import {
   Router,
   RouterLink,
   UrlSerializer
-} from "./chunk-ME26PJZS.js";
-import "./chunk-GWK4R362.js";
-import "./chunk-WCCRXID2.js";
-import "./chunk-PBKTE2VF.js";
+} from "./chunk-ZTSVEZZG.js";
+import "./chunk-CJ7K7SIJ.js";
+import "./chunk-VRFHP6WW.js";
+import "./chunk-JYRAVKG5.js";
 import {
   CommonModule,
   Location,
   LocationStrategy,
   NgIf,
   NgTemplateOutlet
-} from "./chunk-D5SQHFJV.js";
+} from "./chunk-G3RHUIFJ.js";
 import {
   DOCUMENT
-} from "./chunk-VMRIHB2Q.js";
+} from "./chunk-LPXNMYR5.js";
 import {
   APP_INITIALIZER,
   ApplicationRef,

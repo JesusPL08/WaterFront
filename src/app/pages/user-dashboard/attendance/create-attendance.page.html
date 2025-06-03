@@ -1,0 +1,87 @@
+<div class="modal-content p-4">
+  <h4 class="mb-4">Registrar Asistencia</h4>
+
+  <div class="calendar-wrapper">
+    <!-- Calendario -->
+    <div class="calendar-panel">
+      <div class="d-flex align-items-center justify-content-between mb-3 px-2">
+        <button class="btn btn-sm btn-outline-secondary" (click)="changeMonth(-1)">«</button>
+        <h5 class="month-title mb-0 text-center">
+          {{ currentMonthName | titlecase }} {{ currentYear }}
+        </h5>
+        <button class="btn btn-sm btn-outline-secondary" (click)="changeMonth(1)">»</button>
+      </div>
+
+      <div class="calendar-grid">
+        <div class="day-name" *ngFor="let day of dayNames">{{ day }}</div>
+
+        <div
+          class="calendar-day"
+          *ngFor="let day of daysInMonth"
+          [class.today]="day.isToday"
+          [class.active]="isSelected(day.date)"
+          [class.disabled]="day.date === 0"
+          (click)="day.date !== 0 && toggleDay(day.date)"
+        >
+          <ng-container *ngIf="day.date !== 0">{{ day.date }}</ng-container>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel derecho -->
+    <div class="calendar-options">
+      <h6 class="fw-bold mb-3">Opciones</h6>
+
+      <div class="small text-muted mb-2" *ngIf="selectedDays.length === 0">
+        No hay días seleccionados
+      </div>
+
+      <div class="badge bg-info text-dark mb-3" *ngIf="selectedDays.length > 0">
+        {{ selectedDays.length }} día(s) seleccionado(s)
+      </div>
+
+      <div *ngIf="attendanceTypes.length > 0">
+        <p class="fw-bold mb-2">Tipo de asistencia:</p>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <button
+            *ngFor="let type of attendanceTypes"
+            class="btn"
+            [ngClass]="{
+              'btn-outline-primary': selectedTypeId !== type.id,
+              'btn-primary': selectedTypeId === type.id
+            }"
+            (click)="selectAttendanceType(type.id!)"
+          >
+            {{ type.name }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Empleados seleccionados -->
+      <div class="mt-4">
+        <p class="fw-bold mb-2">Empleados seleccionados:</p>
+        <div class="d-flex flex-wrap gap-2">
+          <span
+            *ngFor="let user of data"
+            class="badge bg-secondary text-light px-3 py-2"
+          >
+            {{ user.name }}
+          </span>
+        </div>
+      </div>
+
+
+      <!-- Botones de acción -->
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <button class="btn btn-secondary" (click)="cerrar()">Cerrar</button>
+        <button
+          class="btn btn-success"
+          [disabled]="selectedDays.length === 0 || selectedTypeId === null"
+          (click)="registrarAsistencias()"
+        >
+          Registrar Asistencia
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

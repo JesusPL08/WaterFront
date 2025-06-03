@@ -1,0 +1,77 @@
+<div class="modal-content p-4">
+  <h4 class="mb-4">Registrar Penalización</h4>
+
+  <div class="calendar-wrapper">
+    <!-- Calendario -->
+    <div class="calendar-panel">
+      <div class="d-flex align-items-center justify-content-between mb-3 px-2">
+        <button class="btn btn-sm btn-outline-secondary" (click)="changeMonth(-1)">«</button>
+        <h5 class="month-title mb-0 text-center">
+          {{ currentMonthName | titlecase }} {{ currentYear }}
+        </h5>
+        <button class="btn btn-sm btn-outline-secondary" (click)="changeMonth(1)">»</button>
+      </div>
+
+      <div class="calendar-grid">
+        <div class="day-name" *ngFor="let day of dayNames">{{ day }}</div>
+
+        <div
+          class="calendar-day"
+          *ngFor="let day of daysInMonth"
+          [class.today]="day.isToday"
+          [class.active]="isSelected(day.date)"
+          [class.disabled]="day.date === 0"
+          (click)="day.date !== 0 && toggleDay(day.date)"
+        >
+          <ng-container *ngIf="day.date !== 0">{{ day.date }}</ng-container>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel derecho -->
+    <div class="calendar-options">
+      <h6 class="fw-bold mb-3">Opciones</h6>
+
+      <div class="small text-muted mb-2" *ngIf="selectedDays.length === 0">
+        No hay días seleccionados
+      </div>
+
+      <div class="badge bg-info text-dark mb-3" *ngIf="selectedDays.length > 0">
+        {{ selectedDays.length }} día(s) seleccionado(s)
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="monto" class="fw-bold">Monto:</label>
+        <input id="monto" type="number" class="form-control" [(ngModel)]="amount" />
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="descripcion" class="fw-bold">Descripción:</label>
+        <textarea
+          id="descripcion"
+          class="form-control"
+          rows="2"
+          [(ngModel)]="description"
+        ></textarea>
+      </div>
+
+      <div class="mb-4">
+        <p class="fw-bold mb-2">Empleados seleccionados:</p>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge bg-secondary" *ngFor="let user of data">{{ user.name }}</span>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-secondary" (click)="cerrar()">Cerrar</button>
+        <button
+          class="btn btn-danger"
+          [disabled]="selectedDays.length === 0 || !amount || !description"
+          (click)="registrarCargos()"
+        >
+          Registrar Penalización
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

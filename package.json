@@ -28,6 +28,7 @@
     "@ionic/angular-toolkit": "^12.2.0",
     "@ionic/core": "^8.5.8",
     "@ionic/pwa-elements": "^3.3.0",
+    "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "bootstrap": "^5.3.6",
     "chart.js": "^4.4.9",
     "express": "^4.18.2",

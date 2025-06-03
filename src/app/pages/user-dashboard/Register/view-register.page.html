@@ -1,0 +1,133 @@
+<div class="modal-content p-4">
+  <h4 class="mb-4">Visualizar Registros</h4>
+
+  <div class="d-flex flex-wrap gap-4">
+    <!-- Columna izquierda: calendario + opciones -->
+    <div class="calendar-wrapper" style="flex: 1 1 60%;">
+      <!-- Calendario -->
+      <div class="calendar-panel">
+        <div class="d-flex align-items-center justify-content-between mb-3 px-2">
+          <button class="btn btn-sm btn-outline-secondary" (click)="changeMonth(-1)">«</button>
+          <h5 class="month-title mb-0 text-center">
+            {{ currentMonthName | titlecase }} {{ currentYear }}
+          </h5>
+          <button class="btn btn-sm btn-outline-secondary" (click)="changeMonth(1)">»</button>
+        </div>
+
+        <div class="calendar-grid">
+          <div class="day-name" *ngFor="let day of dayNames">{{ day }}</div>
+
+          <div
+            class="calendar-day"
+            *ngFor="let day of daysInMonth"
+            [class.today]="day.isToday"
+            [class.active]="isSelected(day.date)"
+            [class.disabled]="day.date === 0"
+            (click)="day.date !== 0 && toggleDay(day.date)"
+          >
+            <ng-container *ngIf="day.date !== 0">{{ day.date }}</ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel derecho -->
+      <div class="calendar-options mt-4">
+        <h6 class="fw-bold mb-3">Opciones</h6>
+
+<div class="mb-4">
+  <p class="fw-bold mb-2">Empleados seleccionados:</p>
+  <div class="d-flex flex-wrap gap-2">
+    <span
+      class="badge cursor-pointer px-3 py-2"
+      *ngFor="let user of data"
+      [ngClass]="{
+        'bg-primary text-white border border-dark': selectedUser?.id === user.id,
+        'bg-light text-dark border border-secondary': selectedUser?.id !== user.id
+      }"
+      (click)="selectUser(user)"
+    >
+      {{ user.name }}
+      <span *ngIf="selectedUser?.id === user.id" class="ms-2">✔️</span>
+    </span>
+  </div>
+</div>
+
+
+        <div class="form-group mb-3">
+          <label class="fw-bold">Tipo de Registro:</label>
+          <div class="d-flex gap-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="checkAttendance" [(ngModel)]="showAttendance" />
+              <label class="form-check-label" for="checkAttendance">Asistencias</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="checkBonus" [(ngModel)]="showBonus" />
+              <label class="form-check-label" for="checkBonus">Bonos</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="checkPenalty" [(ngModel)]="showPenalty" />
+              <label class="form-check-label" for="checkPenalty">Penalizaciones</label>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end gap-2 mt-3">
+        <button
+            class="btn btn-primary"
+            [disabled]="!selectedUser || selectedDays.length === 0"
+            (click)="verRegistros()"
+        >
+            Ver Registros
+        </button>
+
+        <button
+            *ngIf="registros.length > 0"
+            class="btn btn-danger"
+            (click)="eliminarSeleccionados()"
+            [disabled]="!haySeleccionados"
+        >
+            Eliminar Seleccionados
+        </button>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- Columna derecha: tabla -->
+    <div class="registros-wrapper" style="flex: 1 1 35%;" *ngIf="registros.length > 0">
+      <h5 class="fw-bold">Registros Encontrados</h5>
+      <table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Tipo</th>
+      <th>Fecha</th>
+      <th>Monto / Horas</th>
+      <th>Descripción / Notas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reg of registros">
+      <td>
+        <input type="checkbox" [(ngModel)]="reg.selected" />
+      </td>
+      <td>{{ reg.tipo }}</td>
+      <td>{{ reg.fecha | date:'mediumDate' }}</td>
+      <td>
+        {{ reg.tipo === 'Asistencia' ? reg.workedHours + ' hrs' : ('$' + reg.amount) }}
+      </td>
+      <td>{{ reg.descripcion }}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="mt-3 d-flex justify-content-end">
+
+
+</div>
+
+      <div class="mt-3 d-flex justify-content-end">
+</div>
+
+    </div>
+  </div>
+</div>

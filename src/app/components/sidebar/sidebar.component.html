@@ -9,11 +9,13 @@
       <a routerLink="/dashboard" routerLinkActive="active" [title]="'Inicio'">
         <span>🏠</span><span *ngIf="!isCollapsed">Inicio</span>
       </a>
-
+      <a routerLink="/Employee" routerLinkActive="active" [title]="'Alta y Configuración'">
+        <span>🧑‍💼</span><span *ngIf="!isCollapsed">Empleados</span>
+      </a>
       <a routerLink="/configuracion" routerLinkActive="active" [title]="'Alta y Configuración'">
         <span>🧰</span><span *ngIf="!isCollapsed">Alta y Configuración</span>
       </a>
-      <button (click)="logout()" [title]="'Cerrar sesión'">
+            <button (click)="logout()" [title]="'Cerrar sesión'">
         <span>🔓</span><span *ngIf="!isCollapsed">Cerrar sesión</span>
       </button>
     </nav>
