@@ -135,7 +135,7 @@ registrarAsistencias(): void {
         date: date.toISOString(),
         attendanceTypeId: this.selectedTypeId,
         workedHours: 8.0,
-        paid: true,
+        paid: false,
         notes: 'Asistencia normal'
       };
 

@@ -109,7 +109,7 @@
   <tbody>
     <tr *ngFor="let reg of registros">
       <td>
-        <input type="checkbox" [(ngModel)]="reg.selected" />
+        <input type="checkbox" [(ngModel)]="reg.selected" [disabled]="reg.tipo === 'Asistencia' && reg.paid === true" />
       </td>
       <td>{{ reg.tipo }}</td>
       <td>{{ reg.fecha | date:'mediumDate' }}</td>

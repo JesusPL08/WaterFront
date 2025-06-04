@@ -41,6 +41,7 @@ export class ViewRegisterPage implements OnInit {
   workedHours?: number;
   descripcion?: string;
   selected?: boolean;
+  paid?: boolean;
 }[] = [];
 
 
@@ -139,6 +140,7 @@ export class ViewRegisterPage implements OnInit {
           fecha: a.date,
           workedHours: a.workedHours,
           descripcion: a.notes,
+          paid: a.paid, // <= aquí
           selected: false
         }))
         ;
