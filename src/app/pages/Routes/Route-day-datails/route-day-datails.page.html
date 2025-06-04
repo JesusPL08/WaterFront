@@ -1,0 +1,20 @@
+<h2 class="modal-title">
+  {{ data.routeDayDate | date: 'fullDate' }}
+</h2>
+
+<div *ngIf="deliveries.length > 0; else sinEntregas">
+  <div class="form-grid">
+    <div class="delivery-item" *ngFor="let d of deliveries">
+      <div><strong>ID:</strong> {{ d.id }}</div>
+      <div><strong>DeliveryBranch ID:</strong> {{ d.deliveryBranchId }}</div>
+    </div>
+  </div>
+</div>
+
+<ng-template #sinEntregas>
+  <p class="no-data">No hay entregas registradas para este día.</p>
+</ng-template>
+
+<div class="form-actions">
+  <button class="btn btn-secondary" (click)="cerrar()">Cerrar</button>
+</div>

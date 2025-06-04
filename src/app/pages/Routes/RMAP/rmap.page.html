@@ -1,0 +1,95 @@
+<app-sidebar></app-sidebar>
+
+<div class="main-content container mt-4">
+  <div class="dashboard-card">
+
+    <!-- Encabezado -->
+    <div class="dashboard-title-with-button d-flex justify-content-between align-items-center mb-3">
+      <h4 class="dashboard-title mb-0">Mapa de Rutas</h4>
+      <button class="btn btn-outline-secondary" (click)="volverARoutes()">
+        ← Volver
+      </button>
+    </div>
+
+    <div class="row">
+      <!-- Panel izquierdo -->
+      <div class="col-md-4 mb-3">
+
+        <!-- Selección de sucursal -->
+        <div class="p-3 border rounded mb-4">
+          <h5 class="mb-2">Seleccionar Sucursal:</h5>
+
+          <input
+            type="text"
+            class="form-control mb-3"
+            placeholder="Buscar por nombre..."
+            [(ngModel)]="searchTerm"
+          />
+
+          <div class="d-flex flex-column gap-2">
+            <button
+              *ngFor="let branch of filteredBranches"
+              class="btn btn-sm text-start"
+              [ngClass]="{
+                'btn-success': isSelected(branch.id!),
+                'btn-outline-secondary': !isSelected(branch.id!)
+              }"
+              (click)="toggleBranch(branch.id!)"
+            >
+              {{ branch.name }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Selección de empleado -->
+        <div class="p-3 border rounded mb-4">
+          <h5 class="mb-2">Seleccionar Empleado:</h5>
+          <select class="form-select" [(ngModel)]="selectedUserId">
+            <option [ngValue]="null">-- Selecciona un usuario --</option>
+            <option *ngFor="let user of users" [ngValue]="user.id">{{ user.name }}</option>
+          </select>
+        </div>
+
+        <!-- Selección de ticket -->
+        <div class="p-3 border rounded">
+          <h5 class="mb-2">Seleccionar Ticket:</h5>
+          <select class="form-select" [(ngModel)]="selectedTicketId">
+            <option [ngValue]="null">-- Selecciona un ticket --</option>
+            <option *ngFor="let t of tickets" [ngValue]="t.id">
+              {{ ('Ticket #' + t.id) }}
+            </option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Panel derecho con el mapa -->
+      <div class="col-md-8 mb-4">
+        <div
+          id="map"
+          style="height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 0 8px rgba(0,0,0,0.1);"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="d-flex justify-content-end gap-2">
+      <button
+        class="btn btn-primary"
+        (click)="exportarRutaAGoogleMaps()"
+        [disabled]="selectedBranches.length < 2"
+      >
+        Exportar ruta a Google Maps
+      </button>
+
+      <button
+        class="btn btn-success"
+        (click)="guardarRutaParaEmpleado()"
+        [disabled]="selectedBranches.length === 0 || !selectedUserId || !selectedTicketId"
+      >
+        Guardar ruta para empleado
+      </button>
+    </div>
+
+  </div>
+</div>

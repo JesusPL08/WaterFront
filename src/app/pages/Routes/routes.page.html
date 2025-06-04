@@ -1,0 +1,50 @@
+<app-sidebar></app-sidebar>
+
+<div class="main-content container mt-4">
+  <div class="dashboard-card">
+    <!-- Título y controles -->
+    <div class="dashboard-title-with-button">
+      <h4 class="dashboard-title mb-0">Rutas por Día</h4>
+
+      <div class="d-flex gap-2 align-items-center">
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="filtroFecha"
+          (change)="filtrarPorFecha()"
+        />
+        <button class="add-user-btn" (click)="abrirModal()">+ Agregar Ruta</button>
+      </div>
+    </div>
+
+    <!-- Carrusel horizontal de tarjetas -->
+    <div class="horizontal-scroll-cards">
+      <div
+        class="mini-card clickable"
+        *ngFor="let ruta of rutasFiltradas"
+        (click)="abrirDetalleEntregas(ruta)"
+      >
+        <h3>{{ ruta.routeDay | date: 'fullDate' }}</h3>
+        <p><strong>Estado:</strong> {{ ruta.status ? 'Activa' : 'Inactiva' }}</p>
+
+        <div class="d-flex justify-content-between mt-3">
+          <button
+            class="btn btn-sm btn-outline-primary"
+            (click)="abrirModal(ruta); $event.stopPropagation()"
+          >
+            Editar
+          </button>
+
+            <button
+            class="btn btn-sm btn-success"
+            (click)="verMapa(ruta); $event.stopPropagation()"
+            >
+            Agregar ruta a empleado
+            </button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
