@@ -51,7 +51,7 @@
         </div>
 
         <!-- Selección de ticket -->
-        <div class="p-3 border rounded">
+        <!-- <div class="p-3 border rounded">
           <h5 class="mb-2">Seleccionar Ticket:</h5>
           <select class="form-select" [(ngModel)]="selectedTicketId">
             <option [ngValue]="null">-- Selecciona un ticket --</option>
@@ -59,7 +59,7 @@
               {{ ('Ticket #' + t.id) }}
             </option>
           </select>
-        </div>
+        </div> -->
 
       </div>
 
@@ -85,7 +85,7 @@
       <button
         class="btn btn-success"
         (click)="guardarRutaParaEmpleado()"
-        [disabled]="selectedBranches.length === 0 || !selectedUserId || !selectedTicketId"
+        [disabled]="selectedBranches.length === 0 || !selectedUserId "
       >
         Guardar ruta para empleado
       </button>

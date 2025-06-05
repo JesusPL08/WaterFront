@@ -132,7 +132,7 @@ private cargarTickets(): void {
   }
 
   guardarRutaParaEmpleado(): void {
-  if (!this.selectedUserId || this.selectedBranches.length === 0 || !this.selectedTicketId || !this.routeDayId) {
+  if (!this.selectedUserId || this.selectedBranches.length === 0 || !this.routeDayId) {
     alert('Selecciona empleado, sucursales, ticket y asegúrate de tener día válido.');
     return;
   }
