@@ -72,13 +72,15 @@ filtrarPorFecha(): void {
 }
 
 abrirDetalleEntregas(ruta: RouteDay): void {
+  console.log('Ruta seleccionada:', ruta);
   const dialogRef = this.dialog.open(RouteDayDatailsPage, {
-  width: '600px',
-  data: {
-    routeDayId: ruta.id,
-    routeDayDate: ruta.routeDay // asegúrate que es una fecha válida tipo string o Date
-  }
-});
+    width: '600px',
+    data: {
+      routeDayId: ruta.id,
+      routeDayDate: ruta.routeDay
+    }
+  });
+
 
 
   dialogRef.afterClosed().subscribe(result => {

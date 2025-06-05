@@ -5,8 +5,8 @@
 <div *ngIf="deliveries.length > 0; else sinEntregas">
   <div class="form-grid">
     <div class="delivery-item" *ngFor="let d of deliveries">
-      <div><strong>ID:</strong> {{ d.id }}</div>
-      <div><strong>DeliveryBranch ID:</strong> {{ d.deliveryBranchId }}</div>
+      <div><strong>Prioridad:</strong> {{ d.deliveryBranch?.priority ?? 'Sin dato' }}</div>
+      <div><strong>Sucursal:</strong> {{ d.branch?.name ?? 'Sucursal no encontrada' }}</div>
     </div>
   </div>
 </div>

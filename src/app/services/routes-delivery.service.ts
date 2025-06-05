@@ -32,7 +32,7 @@ export class RouteDeliveryService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
   getByRoutesDayId(routesDayId: number): Observable<RouteDelivery[]> {
-  return this.http.get<RouteDelivery[]>(`${this.apiUrl}?routesDayId=${routesDayId}`);
+  return this.http.get<RouteDelivery[]>(`${this.apiUrl}/by-routes-day/${routesDayId}`);
 }
 
 }
