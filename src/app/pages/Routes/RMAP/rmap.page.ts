@@ -1,4 +1,9 @@
-import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { BranchService } from '../../../services/branch.service';
 import { Branch } from '../../../models/branch.model';
@@ -14,6 +19,11 @@ import { ticket } from '../../../models/Ticket.model';
 import { RouteDeliveryService } from '../../../services/routes-delivery.service';
 import { RouteDelivery } from '../../../models/route-delivery.model';
 
+interface SelectedBranch {
+  branch: Branch;
+  priority: number; // 1 = verde, 2 = amarillo, 3 = rojo
+}
+
 @Component({
   selector: 'app-rmap',
   standalone: true,
@@ -27,7 +37,7 @@ export class RMAPPage implements AfterViewInit {
   routeDayId: number | null = null;
 
   branches: Branch[] = [];
-  selectedBranches: Branch[] = [];
+  selectedBranches: SelectedBranch[] = [];
   private markerRefs: { [id: number]: any } = {};
   searchTerm: string = '';
 
@@ -47,7 +57,7 @@ export class RMAPPage implements AfterViewInit {
     private ticketService: TicketService,
     private route: ActivatedRoute,
     private router: Router,
-     private routeDeliveryService: RouteDeliveryService,
+    private routeDeliveryService: RouteDeliveryService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -104,21 +114,18 @@ export class RMAPPage implements AfterViewInit {
     });
   }
 
-private cargarTickets(): void {
-  this.ticketService.getAll().subscribe({
-    next: tickets => {
-      this.tickets = tickets;
-      console.log('Tickets cargados:', this.tickets);
-    },
-    error: err => console.error('Error al cargar tickets', err)
-  });
-}
-
-
+  private cargarTickets(): void {
+    this.ticketService.getAll().subscribe({
+      next: tickets => {
+        this.tickets = tickets;
+      },
+      error: err => console.error('Error al cargar tickets', err)
+    });
+  }
 
   exportarRutaAGoogleMaps(): void {
     const coords = this.selectedBranches
-      .map(branch => this.parseAddress(branch.address))
+      .map(sb => this.parseAddress(sb.branch.address))
       .filter(Boolean)
       .map(coord => `${coord!.lat},${coord!.lng}`);
 
@@ -132,41 +139,48 @@ private cargarTickets(): void {
   }
 
   guardarRutaParaEmpleado(): void {
-  if (!this.selectedUserId || this.selectedBranches.length === 0 || !this.routeDayId) {
-    alert('Selecciona empleado, sucursales, ticket y asegúrate de tener día válido.');
-    return;
+    if (!this.selectedUserId || this.selectedBranches.length === 0 || !this.routeDayId) {
+      alert('Selecciona empleado, sucursales, ticket y asegúrate de tener día válido.');
+      return;
+    }
+
+    this.selectedBranches.forEach((sb) => {
+      const delivery: DeliveryBranch = {
+        userId: this.selectedUserId!,
+        branchId: sb.branch.id!,
+        ticketId: this.selectedTicketId!,
+        priority: sb.priority,
+        status: 1
+      };
+
+      this.deliveryBranchService.create(delivery).subscribe({
+        next: (createdDelivery) => {
+          const routeDelivery: RouteDelivery = {
+            deliveryBranchId: createdDelivery.id!,
+            routesDayId: this.routeDayId!
+          };
+
+          this.routeDeliveryService.create(routeDelivery).subscribe({
+            next: () =>
+              console.log(
+                `Asignado delivery #${createdDelivery.id} a routeDay #${this.routeDayId}`
+              ),
+            error: err => console.error('Error creando routeDelivery', err)
+          });
+        },
+        error: err => console.error('Error creando deliveryBranch', err)
+      });
+    });
+
+    alert('Entregas asignadas correctamente.');
   }
 
-  this.selectedBranches.forEach((branch, index) => {
-    const delivery: DeliveryBranch = {
-      userId: this.selectedUserId!,
-      branchId: branch.id!,
-      ticketId: this.selectedTicketId!,
-      priority: index + 1,
-      status: 1
-    };
-
-    this.deliveryBranchService.create(delivery).subscribe({
-      next: (createdDelivery) => {
-        const routeDelivery: RouteDelivery = {
-          deliveryBranchId: createdDelivery.id!,
-          routesDayId: this.routeDayId!
-        };
-
-        this.routeDeliveryService.create(routeDelivery).subscribe({
-          next: () => console.log(`Asignado delivery #${createdDelivery.id} a routeDay #${this.routeDayId}`),
-          error: err => console.error('Error creando routeDelivery', err)
-        });
-      },
-      error: err => console.error('Error creando deliveryBranch', err)
-    });
-  });
-
-  alert('Entregas asignadas correctamente.');
-}
-
   isSelected(id: number): boolean {
-    return this.selectedBranches.some(branch => branch.id === id);
+    return this.selectedBranches.some(sb => sb.branch.id === id);
+  }
+
+  setPriority(sb: SelectedBranch, level: number): void {
+    sb.priority = level;
   }
 
   private initMap(): void {
@@ -207,9 +221,9 @@ private cargarTickets(): void {
     }
 
     return [
-      ...this.selectedBranches,
+      ...this.selectedBranches.map(sb => sb.branch),
       ...this.branches.filter(
-        b => !this.selectedBranches.find(s => s.id === b.id)
+        b => !this.selectedBranches.find(sb => sb.branch.id === b.id)
       )
     ];
   }
@@ -223,12 +237,12 @@ private cargarTickets(): void {
       this.map.setView([coords.lat, coords.lng], 14);
     }
 
-    const idx = this.selectedBranches.findIndex(b => b.id === id);
+    const idx = this.selectedBranches.findIndex(sb => sb.branch.id === id);
     if (idx >= 0) {
       this.selectedBranches.splice(idx, 1);
       this.markerRefs[id].setIcon(this.defaultIcon);
     } else {
-      this.selectedBranches.push(branch);
+      this.selectedBranches.push({ branch, priority: 1 }); // default prioridad verde
       this.markerRefs[id].setIcon(this.selectedIcon);
     }
   }

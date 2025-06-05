@@ -1,6 +1,6 @@
 <app-sidebar></app-sidebar>
-
-<div class="main-content container mt-4">
+<div class="">
+<div class="main-content container mt-4 dashboard-wrapper">
   <div class="dashboard-card">
     <!-- Título y controles -->
     <div class="dashboard-title-with-button">
@@ -17,6 +17,7 @@
       </div>
     </div>
 
+
     <!-- Carrusel horizontal de tarjetas -->
     <div class="horizontal-scroll-cards">
       <div
@@ -27,7 +28,7 @@
         <h3>{{ ruta.routeDay | date: 'fullDate' }}</h3>
         <p><strong>Estado:</strong> {{ ruta.status ? 'Activa' : 'Inactiva' }}</p>
 
-        <div class="d-flex justify-content-between mt-3">
+        <div class="d-flex justify-content-between flex-wrap mt-3 gap-2">
           <button
             class="btn btn-sm btn-outline-primary"
             (click)="abrirModal(ruta); $event.stopPropagation()"
@@ -35,16 +36,26 @@
             Editar
           </button>
 
-            <button
+          <button
             class="btn btn-sm btn-success"
             (click)="verMapa(ruta); $event.stopPropagation()"
-            >
+          >
             Agregar ruta a empleado
-            </button>
+          </button>
 
+        <button
+          class="btn btn-sm btn-outline-dark"
+          *ngIf="ruta.id !== undefined"
+          (click)="exportarRutaAGoogleMapsDesdeRouteDay(ruta.id!); $event.stopPropagation()"
+        >
+          Ver en Google Maps
+        </button>
 
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
 </div>

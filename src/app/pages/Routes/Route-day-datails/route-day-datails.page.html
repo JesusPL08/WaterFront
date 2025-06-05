@@ -1,13 +1,51 @@
+
+<ng-container *ngIf="!cargando; else cargandoEntregas">
 <h2 class="modal-title">
   {{ data.routeDayDate | date: 'fullDate' }}
 </h2>
-
+ 
 <div *ngIf="deliveries.length > 0; else sinEntregas">
   <div class="form-grid">
-    <div class="delivery-item" *ngFor="let d of deliveries">
-      <div><strong>Prioridad:</strong> {{ d.deliveryBranch?.priority ?? 'Sin dato' }}</div>
+    <div
+      *ngFor="let d of paginatedDeliveries"
+      [ngClass]="['delivery-item', getPriorityClass(d.deliveryBranch?.priority)]"
+      [title]="'Prioridad ' + (d.deliveryBranch?.priority ?? 'Sin dato')"
+    >
       <div><strong>Sucursal:</strong> {{ d.branch?.name ?? 'Sucursal no encontrada' }}</div>
+      <button class="btn btn-sm btn-danger align-self-end" (click)="eliminarEntrega(d)">Eliminar</button>
     </div>
+
+    <!-- Tarjeta para agregar nueva asignación (solo en última página) -->
+    <div
+      class="delivery-item add-card"
+      *ngIf="currentPage === totalPages"
+      (click)="verMapaYcerrar()"
+    >
+      <button class="add-btn" aria-label="Agregar entrega">+</button>
+    </div>
+  </div>
+
+  <!-- Controles de paginación -->
+  <div class="pagination-controls mt-3">
+    <button
+      class="btn btn-sm btn-outline-primary"
+      [disabled]="currentPage === 1"
+      (click)="paginaAnterior()"
+
+    >
+      « Anterior
+    </button>
+
+    <span class="mx-2">Página {{ currentPage }} de {{ totalPages }}</span>
+
+    <button
+      class="btn btn-sm btn-outline-primary"
+      [disabled]="currentPage === totalPages"
+      (click)="paginaSiguiente()"
+
+    >
+      Siguiente »
+    </button>
   </div>
 </div>
 
@@ -18,3 +56,10 @@
 <div class="form-actions">
   <button class="btn btn-secondary" (click)="cerrar()">Cerrar</button>
 </div>
+</ng-container>
+
+<ng-template #cargandoEntregas>
+  <div class="loading-container">
+    <p>Cargando entregas...</p>
+  </div>
+</ng-template>

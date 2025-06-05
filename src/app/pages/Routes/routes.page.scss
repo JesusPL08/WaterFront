@@ -9,7 +9,14 @@
   overflow: hidden;
   position: relative;
 }
-
+.dashboard-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+  height: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
 // Fondo animado
 .background {
   position: absolute;
@@ -28,29 +35,14 @@
   }
 }
 
-// Contenido principal con sidebar
+
 .main-content {
   margin-left: 220px; // espacio para sidebar
   padding: 2rem;
   height: 100vh;
   overflow-y: auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  position: relative;
-  z-index: 1;
 }
 
-// Centrado y padding interno
-.dashboard-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 2rem;
-  box-sizing: border-box;
-}
 
 // Tarjeta principal
 .dashboard-card {

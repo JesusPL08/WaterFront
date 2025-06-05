@@ -247,3 +247,23 @@ button.btn-sm {
   font-weight: 500;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
+.prioridad-scroll {
+  .scroll-wrapper {
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+
+    /* Scroll suave y personalizado (opcional) */
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 3px;
+    }
+  }
+}

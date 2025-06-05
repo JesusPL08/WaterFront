@@ -50,16 +50,50 @@
           </select>
         </div>
 
-        <!-- Selección de ticket -->
-        <!-- <div class="p-3 border rounded">
-          <h5 class="mb-2">Seleccionar Ticket:</h5>
-          <select class="form-select" [(ngModel)]="selectedTicketId">
-            <option [ngValue]="null">-- Selecciona un ticket --</option>
-            <option *ngFor="let t of tickets" [ngValue]="t.id">
-              {{ ('Ticket #' + t.id) }}
-            </option>
-          </select>
-        </div> -->
+<!-- Prioridad de sucursales seleccionadas -->
+<div class="p-3 border rounded mb-4 prioridad-scroll" *ngIf="selectedBranches.length > 0">
+  <h5 class="mb-3">Prioridad por Sucursal:</h5>
+  <div class="scroll-wrapper">
+    <div
+      class="d-flex justify-content-between align-items-center mb-2"
+      *ngFor="let sb of selectedBranches"
+    >
+      <span class="me-2">{{ sb.branch.name }}</span>
+      <div class="btn-group" role="group">
+        <button
+          class="btn btn-sm"
+          [ngClass]="{
+            'btn-success': sb.priority === 1,
+            'btn-outline-secondary': sb.priority !== 1
+          }"
+          (click)="setPriority(sb, 1)"
+        >
+          🟢
+        </button>
+        <button
+          class="btn btn-sm"
+          [ngClass]="{
+            'btn-warning': sb.priority === 2,
+            'btn-outline-secondary': sb.priority !== 2
+          }"
+          (click)="setPriority(sb, 2)"
+        >
+          🟡
+        </button>
+        <button
+          class="btn btn-sm"
+          [ngClass]="{
+            'btn-danger': sb.priority === 3,
+            'btn-outline-secondary': sb.priority !== 3
+          }"
+          (click)="setPriority(sb, 3)"
+        >
+          🔴
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
       </div>
 
@@ -85,7 +119,7 @@
       <button
         class="btn btn-success"
         (click)="guardarRutaParaEmpleado()"
-        [disabled]="selectedBranches.length === 0 || !selectedUserId "
+        [disabled]="selectedBranches.length === 0 || !selectedUserId"
       >
         Guardar ruta para empleado
       </button>

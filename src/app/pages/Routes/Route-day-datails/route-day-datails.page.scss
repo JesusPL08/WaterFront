@@ -1,5 +1,6 @@
 @import '../../../../styles/variables.scss';
 
+/* ---------- CONTENEDOR PRINCIPAL ---------- */
 :host {
   display: block;
   background-color: #fff;
@@ -12,37 +13,107 @@
   font-family: 'Exo', sans-serif;
 }
 
+/* ---------- TÍTULO ---------- */
 .modal-title {
   font-size: 1.5rem;
   font-weight: 600;
   color: $primary-color;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
+/* ---------- GRID DE CARDS ---------- */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   width: 100%;
+  align-items: stretch;
 }
 
+/* ---------- TARJETAS DE ENTREGA ---------- */
 .delivery-item {
   background-color: #f9f9f9;
-  border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
   font-size: 0.95rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  justify-content: space-between;
+  min-height: 120px;
 }
 
+/* ---------- COLORES DE PRIORIDAD ---------- */
+.priority-low {
+  border-left: 6px solid #28a745;
+}
+
+.priority-medium {
+  border-left: 6px solid #ffc107;
+}
+
+.priority-high {
+  border-left: 6px solid #dc3545;
+}
+
+.priority-unknown {
+  border-left: 6px solid #6c757d;
+}
+
+/* ---------- BOTÓN ELIMINAR ---------- */
+button.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 0.5rem;
+}
+
+/* ---------- CARD DE AGREGAR ---------- */
+.add-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9f5ff;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  border: 2px dashed #007bff;
+  border-radius: 8px;
+  min-height: 120px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .add-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* ---------- MENSAJE SIN DATOS ---------- */
 .no-data {
   font-style: italic;
   color: #888;
   font-size: 0.95rem;
+  text-align: center;
+  margin-top: 1rem;
 }
 
+/* ---------- PIE DEL MODAL ---------- */
 .form-actions {
   grid-column: 1 / -1;
   text-align: right;
@@ -53,4 +124,40 @@
     border-radius: 8px;
     font-weight: 500;
   }
+}
+
+/* ---------- PAGINACIÓN ---------- */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  button {
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  span {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #333;
+  }
+}
+.loading-container {
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  margin-top: 2rem;
 }

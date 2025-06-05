@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Ruta Generada</h2>
+
+<mat-dialog-content>
+  <div *ngIf="cargando" class="loading-container">
+    <p>Cargando direcciones...</p>
+  </div>
+
+  <div *ngIf="!cargando && !mensajeError" class="url-section">
+    <p><strong>URL:</strong></p>
+    <input type="text" class="form-control mb-2" [value]="url" readonly />
+
+    <div class="btn-group">
+      <button mat-flat-button color="primary" class="btn btn-primary" (click)="abrirGoogleMaps()">Abrir en Google Maps</button>
+      <button mat-stroked-button color="accent" class="btn btn-primary" (click)="cerrar()">Cerrar</button>
+    </div>
+  </div>
+
+  <div *ngIf="mensajeError" class="error-message">
+    <p>{{ mensajeError }}</p>
+    <div class="btn-group">
+      <button mat-stroked-button color="warn" class="btn btn-primary" (click)="cerrar()">Cerrar</button>
+    </div>
+  </div>
+</mat-dialog-content>
