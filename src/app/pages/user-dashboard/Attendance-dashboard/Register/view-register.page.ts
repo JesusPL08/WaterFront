@@ -2,13 +2,13 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { User } from '../../../models/user.model';
-import { AttendanceService } from '../../../services/attendance.service';
-import { BonusService } from '../../../services/bonus.service';
-import { PenaltyChargeService } from '../../../services/penalty-charge.service';
-import { Attendance } from '../../../models/attendance.model';
-import { Bonus } from '../../../models/bonus.model';
-import { PenaltyCharge } from '../../../models/penalty-charge.model';
+import { User } from '../../../../models/user.model';
+import { AttendanceService } from '../../../../services/attendance.service';
+import { BonusService } from '../../../../services/bonus.service';
+import { PenaltyChargeService } from '../../../../services/penalty-charge.service';
+import { Attendance } from '../../../../models/attendance.model';
+import { Bonus } from '../../../../models/bonus.model';
+import { PenaltyCharge } from '../../../../models/penalty-charge.model';
 
 @Component({
   selector: 'app-view-register',

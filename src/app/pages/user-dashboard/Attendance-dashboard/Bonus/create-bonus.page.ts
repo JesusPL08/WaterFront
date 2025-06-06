@@ -2,9 +2,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { User } from '../../../models/user.model';
-import { Bonus } from '../../../models/bonus.model';
-import { BonusService } from '../../../services/bonus.service';
+import { User } from '../../../../models/user.model';
+import { Bonus } from '../../../../models/bonus.model';
+import { BonusService } from '../../../../services/bonus.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 

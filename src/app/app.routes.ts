@@ -44,11 +44,18 @@ export const routes: Routes = [
     {
   path: 'Routes',
   loadComponent: () => import('./pages/Routes/routes.page').then(m => m.RoutesPage)
+  },
+  {
+    path: 'RMAP/:dayId',
+    loadComponent: () => import('./pages/Routes/RMAP/rmap.page').then(m => m.RMAPPage)
+  },
+  {
+    path: 'Attendance-dashboard',
+    loadComponent: () => import('./pages/user-dashboard/Attendance-dashboard/attendance-dashboard.page').then(m => m.AttendanceDashboardPage)
+  },
+  {
+    path: 'Comission',
+    loadComponent: () => import('./pages/user-dashboard/Comissions/comissions.page').then(m => m.CommissionPage)
   }
-  ,
-{
-  path: 'RMAP/:dayId',
-  loadComponent: () => import('./pages/Routes/RMAP/rmap.page').then(m => m.RMAPPage)
-}
 
 ];

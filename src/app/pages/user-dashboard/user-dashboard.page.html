@@ -4,58 +4,16 @@
   <div class="dashboard-wrapper">
     <div class="dashboard-card">
       <h2 class="dashboard-title">Empleados</h2>
-
-      <div class="d-flex justify-content-end mb-4">
-        <button class="btn btn-success action-btn" (click)="abrirModalAsistencia()">Asistencia</button>
-          <button class="btn btn-primary action-btn" (click)="abrirModalBonos()">Bonos</button>
-          <button class="btn btn-primary action-btn" (click)="abrirModalPenalty()">Penalización</button>
-          <button class="btn btn-primary action-btn" (click)="abrirModalRegister()">Registro</button>
-      </div>
-
-      <div class="row">
-        <div
-          class="col-md-4 mb-3"
-          *ngFor="let user of users | paginate: { itemsPerPage: 6, currentPage: currentPage }"
-        >
-          <div
-            class="card h-100 user-card"
-            [class.selected]="user.selected"
-            (click)="toggleSelection(user)"
-          >
-            <div class="card-body">
-              <h5 class="card-title mb-2 fw-bold text-primary">{{ user.name }}</h5>
-              <p class="card-text text-muted mb-1">
-                <strong>Teléfono:</strong> {{ user.phoneNumber }}
-              </p>
-              <p class="card-text text-muted">
-                <strong>Perfil:</strong> {{ user.profileName }}
-              </p>
-            </div>
-          </div>
+      <div class="dashboard-cards">
+        <div class="mini-card" routerLink="/Attendance-dashboard">
+          <h3>👥 Asistencia</h3>
+          <p>Gestión de usuarios de asistencia en el sistema</p>
+        </div>
+        <div class="mini-card" routerLink="/Comission">
+          <h3>👥 Comision</h3>
+          <p>Gestión de usuarios de asistencia en el sistema</p>
         </div>
       </div>
-
-      <!-- Paginación -->
-      <pagination-controls
-        class="d-flex justify-content-center mt-4"
-        (pageChange)="currentPage = $event"
-      ></pagination-controls>
     </div>
   </div>
 </div>
-
-<!-- Modal de acción -->
-<ng-template #actionModal let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">Acción: {{ action | titlecase }}</h5>
-    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
-  </div>
-  <div class="modal-body">
-    <p>Seleccionaste {{ selectedUsers.length }} empleado(s):</p>
-    <ul>
-      <li *ngFor="let u of selectedUsers">{{ u.name }}</li>
-    </ul>
-  </div>
-  <div class="modal-footer">
-  </div>
-</ng-template>

@@ -25,7 +25,8 @@
         *ngFor="let ruta of rutasFiltradas"
         (click)="abrirDetalleEntregas(ruta)"
       >
-        <h3>{{ ruta.routeDay | date: 'fullDate' }}</h3>
+        <h3> {{ruta.name}}</h3>
+        <p><strong></strong>{{ ruta.routeDay | date: 'fullDate' }}</p>
         <p><strong>Estado:</strong> {{ ruta.status ? 'Activa' : 'Inactiva' }}</p>
 
         <div class="d-flex justify-content-between flex-wrap mt-3 gap-2">

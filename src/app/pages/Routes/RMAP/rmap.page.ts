@@ -21,7 +21,7 @@ import { RouteDelivery } from '../../../models/route-delivery.model';
 
 interface SelectedBranch {
   branch: Branch;
-  priority: number; // 1 = verde, 2 = amarillo, 3 = rojo
+  priority: number;
 }
 
 @Component({
@@ -100,8 +100,12 @@ export class RMAPPage implements AfterViewInit {
   private cargarBranches(): void {
     this.branchService.getAllBranches().subscribe({
       next: branches => {
-        this.branches = branches;
-        this.mostrarEnMapa(branches);
+        // Mapear 'Coordinate' del backend a 'coordinate'
+        this.branches = branches.map((b: any) => ({
+          ...b,
+          coordinate: b.coordinate || b.Coordinate || null
+        }));
+        this.mostrarEnMapa(this.branches);
       },
       error: err => console.error('Error al cargar sucursales', err)
     });
@@ -116,16 +120,14 @@ export class RMAPPage implements AfterViewInit {
 
   private cargarTickets(): void {
     this.ticketService.getAll().subscribe({
-      next: tickets => {
-        this.tickets = tickets;
-      },
+      next: tickets => (this.tickets = tickets),
       error: err => console.error('Error al cargar tickets', err)
     });
   }
 
   exportarRutaAGoogleMaps(): void {
     const coords = this.selectedBranches
-      .map(sb => this.parseAddress(sb.branch.address))
+      .map(sb => this.parseAddress(sb.branch.coordinate))
       .filter(Boolean)
       .map(coord => `${coord!.lat},${coord!.lng}`);
 
@@ -198,7 +200,7 @@ export class RMAPPage implements AfterViewInit {
 
   private mostrarEnMapa(branches: Branch[]): void {
     branches.forEach(branch => {
-      const coords = this.parseAddress(branch.address);
+      const coords = this.parseAddress(branch.coordinate);
       if (!coords) return;
 
       const marker = this.leaflet
@@ -232,7 +234,7 @@ export class RMAPPage implements AfterViewInit {
     const branch = this.branches.find(b => b.id === id);
     if (!branch) return;
 
-    const coords = this.parseAddress(branch.address);
+    const coords = this.parseAddress(branch.coordinate);
     if (coords) {
       this.map.setView([coords.lat, coords.lng], 14);
     }
@@ -242,16 +244,21 @@ export class RMAPPage implements AfterViewInit {
       this.selectedBranches.splice(idx, 1);
       this.markerRefs[id].setIcon(this.defaultIcon);
     } else {
-      this.selectedBranches.push({ branch, priority: 1 }); // default prioridad verde
+      this.selectedBranches.push({ branch, priority: 1 });
       this.markerRefs[id].setIcon(this.selectedIcon);
     }
   }
 
-  private parseAddress(address: string): { lat: number; lng: number } | null {
-    if (!address) return null;
-    const [latStr, lngStr] = address.split(',').map(p => p.trim());
+  private parseAddress(coordinate: string | null | undefined): { lat: number; lng: number } | null {
+    if (!coordinate || typeof coordinate !== 'string') return null;
+
+    const parts = coordinate.split(',').map(p => p.trim());
+    if (parts.length !== 2) return null;
+
+    const [latStr, lngStr] = parts;
     const lat = parseFloat(latStr);
     const lng = parseFloat(lngStr);
+
     return isNaN(lat) || isNaN(lng) ? null : { lat, lng };
   }
 }

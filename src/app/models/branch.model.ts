@@ -2,6 +2,7 @@ export interface Branch {
   id?: number;
   name: string;
   address: string;
+  coordinate?: string;
   phoneNumber: string;
   manager: string;
   salePrice: number;

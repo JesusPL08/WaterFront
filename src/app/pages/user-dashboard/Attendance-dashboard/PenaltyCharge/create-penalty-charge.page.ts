@@ -4,9 +4,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { User } from '../../../models/user.model';
-import { PenaltyCharge } from '../../../models/penalty-charge.model';
-import { PenaltyChargeService } from '../../../services/penalty-charge.service';
+import { User } from '../../../../models/user.model';
+import { PenaltyCharge } from '../../../../models/penalty-charge.model';
+import { PenaltyChargeService } from '../../../../services/penalty-charge.service';
 
 @Component({
   selector: 'app-create-penalty-charge',

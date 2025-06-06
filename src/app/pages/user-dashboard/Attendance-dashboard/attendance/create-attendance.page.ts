@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { User } from '../../../models/user.model';
-import { type_attendance } from '../../../models/type-attendance.model';
-import { AttendanceTypeService } from '../../../services/attendance-type.service';
-import { AttendanceService } from '../../../services/attendance.service';
-import { Attendance } from '../../../models/attendance.model';
+import { User } from '../../../../models/user.model';
+import { type_attendance } from '../../../../models/type-attendance.model';
+import { AttendanceTypeService } from '../../../../services/attendance-type.service';
+import { AttendanceService } from '../../../../services/attendance.service';
+import { Attendance } from '../../../../models/attendance.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 

@@ -9,4 +9,34 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
+label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+input[type='text'],
+input[type='date'],
+select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+button {
+  min-width: 100px;
+}
