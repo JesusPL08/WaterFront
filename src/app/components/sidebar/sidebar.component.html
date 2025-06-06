@@ -1,32 +1,41 @@
 <div class="sidebar" [class.collapsed]="isCollapsed">
-  <div class="logo-section" *ngIf="!isCollapsed">
+  <!-- Logo (visible solo si no está colapsado o si está en mobile) -->
+  <div class="logo-section" *ngIf="!isCollapsed || isMobile()">
     <img src="assets/man.png" alt="Logo" class="logo" />
     <h2>AquaAzul</h2>
   </div>
 
+  <!-- Menú -->
   <div class="menu-scrollable">
     <nav class="menu">
       <a routerLink="/dashboard" routerLinkActive="active" [title]="'Inicio'">
-        <span>🏠</span><span *ngIf="!isCollapsed">Inicio</span>
+        <span>🏠</span>
+        <span *ngIf="!isCollapsed || isMobile()">Inicio</span>
       </a>
-      <a routerLink="/Employee" routerLinkActive="active" [title]="'Alta y Configuración'">
-        <span>🧑‍💼</span><span *ngIf="!isCollapsed">Empleados</span>
+      <a routerLink="/Employee" routerLinkActive="active" [title]="'Empleados'">
+        <span>🧑‍💼</span>
+        <span *ngIf="!isCollapsed || isMobile()">Empleados</span>
       </a>
-             <a routerLink="/Routes" routerLinkActive="active" [title]="'Rutas'">
-        <span>📌</span><span *ngIf="!isCollapsed">Rutas</span>
+      <a routerLink="/Routes" routerLinkActive="active" [title]="'Rutas'">
+        <span>📌</span>
+        <span *ngIf="!isCollapsed || isMobile()">Rutas</span>
       </a>
       <a routerLink="/configuracion" routerLinkActive="active" [title]="'Alta y Configuración'">
-        <span>🧰</span><span *ngIf="!isCollapsed">Alta y Configuración</span>
+        <span>🧰</span>
+        <span *ngIf="!isCollapsed || isMobile()">Alta y Configuración</span>
       </a>
-
-            <button (click)="logout()" [title]="'Cerrar sesión'">
-        <span>🔓</span><span *ngIf="!isCollapsed">Cerrar sesión</span>
+      <button (click)="logout()" [title]="'Cerrar sesión'">
+        <span>🔓</span>
+        <span *ngIf="!isCollapsed || isMobile()">Cerrar sesión</span>
       </button>
     </nav>
   </div>
 
+  <!-- Botón de colapso -->
   <div class="toggle-btn-modern" (click)="toggleSidebar()">
     <span *ngIf="isCollapsed">☰</span>
     <span *ngIf="!isCollapsed">✖</span>
   </div>
 </div>
+
+

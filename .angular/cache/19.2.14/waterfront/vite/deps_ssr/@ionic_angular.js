@@ -1,25 +1,10 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  mdTransitionAnimation
-} from "./chunk-QHKT6DZ5.js";
-import "./chunk-U3XYOFJO.js";
-import "./chunk-N2I4VVBS.js";
-import {
-  LIFECYCLE_DID_ENTER,
-  LIFECYCLE_DID_LEAVE,
-  LIFECYCLE_WILL_ENTER,
-  LIFECYCLE_WILL_LEAVE,
-  LIFECYCLE_WILL_UNLOAD,
-  componentOnReady,
-  config,
-  createAnimation,
-  doc,
-  getMode,
-  printIonWarning
-} from "./chunk-TFVWTCWB.js";
-import {
   iosTransitionAnimation
 } from "./chunk-FWSULCWV.js";
+import {
+  mdTransitionAnimation
+} from "./chunk-QHKT6DZ5.js";
 import {
   __awaiter,
   __decorate,
@@ -38,13 +23,21 @@ import {
   saveConfig,
   setMode
 } from "./chunk-MTB63NGY.js";
+import "./chunk-U3XYOFJO.js";
+import "./chunk-N2I4VVBS.js";
 import {
-  MaxValidator,
-  MinValidator,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  NgControl
-} from "./chunk-LGVGGJEQ.js";
+  LIFECYCLE_DID_ENTER,
+  LIFECYCLE_DID_LEAVE,
+  LIFECYCLE_WILL_ENTER,
+  LIFECYCLE_WILL_LEAVE,
+  LIFECYCLE_WILL_UNLOAD,
+  componentOnReady,
+  config,
+  createAnimation,
+  doc,
+  getMode,
+  printIonWarning
+} from "./chunk-TFVWTCWB.js";
 import {
   ActivatedRoute,
   ChildrenOutletContexts,
@@ -53,20 +46,27 @@ import {
   Router,
   RouterLink,
   UrlSerializer
-} from "./chunk-MY7IHBGZ.js";
-import "./chunk-SOCD7BO7.js";
-import "./chunk-N4P4VVFX.js";
-import "./chunk-M5MT4XPO.js";
+} from "./chunk-DMRRNUEJ.js";
+import "./chunk-TVU6T676.js";
+import {
+  MaxValidator,
+  MinValidator,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl
+} from "./chunk-MU47ERLG.js";
+import "./chunk-K2QTUY6O.js";
+import "./chunk-BANW6GOW.js";
 import {
   CommonModule,
   Location,
   LocationStrategy,
   NgIf,
   NgTemplateOutlet
-} from "./chunk-IAMEY2EZ.js";
+} from "./chunk-LHQGOBFZ.js";
 import {
   DOCUMENT
-} from "./chunk-RXCQYRKV.js";
+} from "./chunk-BZWCNSUO.js";
 import {
   APP_INITIALIZER,
   ApplicationRef,
