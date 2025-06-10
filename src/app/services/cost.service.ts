@@ -8,7 +8,7 @@ import { Cost } from '../models/cost.model';
   providedIn: 'root'
 })
 export class CostService {
-  private apiUrl = `${environment.apiBaseUrl}/costs`;
+  private apiUrl = `${environment.apiBaseUrl}/cost`;
 
   constructor(private http: HttpClient) {}
 

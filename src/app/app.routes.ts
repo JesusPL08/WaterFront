@@ -57,5 +57,18 @@ export const routes: Routes = [
     path: 'Comission',
     loadComponent: () => import('./pages/user-dashboard/Comissions/comissions.page').then(m => m.CommissionPage)
   }
+<<<<<<< Updated upstream
+=======
+  ,
+{
+  path: 'Cost',
+  loadComponent: () => import('./pages/cost/cost.page').then(m => m.CostPage)
+},
+
+{
+  path: 'RMAP/:dayId',
+  loadComponent: () => import('./pages/Routes/RMAP/rmap.page').then(m => m.RMAPPage)
+}
+>>>>>>> Stashed changes
 
 ];

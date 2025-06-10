@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css?family=Exo:100");
+@import '../../../styles/variables.scss';
+
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Exo', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+// Fondo animado (opcional)
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background: url("data:image/png;base64,...") repeat 0 0;
+  animation: bg-scrolling-reverse 0.92s infinite linear;
+}
+
+@keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+// Contenido principal con sidebar
+.main-content {
+  margin-left: 220px;
+  padding: 2rem;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+// Contenedor general
+.dashboard-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+// Tarjeta
+.dashboard-card {
+  background-color: $background-table-color;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 1000px;
+}
+
+// Título
+.dashboard-title {
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: $primary-color;
+}
+
+// Botón principal
+.add-user-btn {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+// Formularios
+form {
+  .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .form-control {
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    box-shadow: none;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+    }
+  }
+
+  .text-end {
+    text-align: right;
+  }
+}
