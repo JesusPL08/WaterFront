@@ -1,0 +1,22 @@
+<app-sidebar></app-sidebar>
+
+<div class="main-content container mt-4">
+  <div class="dashboard-card">
+    <div class="dashboard-title-with-button">
+      <h4 class="dashboard-title mb-0">Áreas Registradas</h4>
+      <button class="add-user-btn" (click)="abrirModal()">+ Agregar Área</button>
+    </div>
+
+    <app-table
+      [headers]="['Nombre del Área']"
+      [rows]="areas"
+      [keys]="['name']"
+      [actionsTemplate]="accionesTemplate">
+    </app-table>
+
+    <ng-template #accionesTemplate let-area>
+      <button class="btn btn-sm btn-warning me-2" (click)="abrirModal(area)">Editar</button>
+      <button class="btn btn-sm btn-danger" (click)="eliminarArea(area)">Eliminar</button>
+    </ng-template>
+  </div>
+</div>

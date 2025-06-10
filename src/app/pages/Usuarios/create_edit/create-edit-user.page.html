@@ -1,9 +1,9 @@
 <div class="modal-content p-4">
   <h4 class="mb-4">{{ isEditMode ? 'Editar Usuario' : 'Crear Usuario' }}</h4>
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="row g-3">
+    <div class="form-grid">
 
-      <div class="col-md-6">
+      <div class="form-field">
         <app-form-field
           label="Nombre"
           [control]="getSafeControl('name')"
@@ -11,7 +11,7 @@
         </app-form-field>
       </div>
 
-      <div class="col-md-6">
+      <div class="form-field">
         <app-form-field
           label="Teléfono"
           [control]="getSafeControl('phoneNumber')"
@@ -19,7 +19,7 @@
         </app-form-field>
       </div>
 
-      <div class="col-md-6">
+      <div class="form-field">
         <app-form-field
           label="RFC"
           [control]="getSafeControl('rfc')"
@@ -27,7 +27,7 @@
         </app-form-field>
       </div>
 
-      <div class="col-md-6">
+      <div class="form-field">
         <app-form-field
           label="Perfil"
           [control]="getSafeControl('profileId')"
@@ -37,7 +37,7 @@
         </app-form-field>
       </div>
 
-      <div class="col-md-6">
+      <div class="form-field">
         <app-form-field
           label="Sueldo"
           [control]="getSafeControl('salaryId')"
@@ -47,7 +47,7 @@
         </app-form-field>
       </div>
 
-      <div class="col-md-6">
+      <div class="form-field">
         <app-form-field
           label="Fecha de Contratación"
           [control]="getSafeControl('hiringDate')"
@@ -55,7 +55,7 @@
         </app-form-field>
       </div>
 
-      <div class="col-md-6">
+      <div class="form-field">
         <app-form-field
           label="Sucursal"
           [control]="getSafeControl('branchId')"
@@ -65,7 +65,32 @@
         </app-form-field>
       </div>
 
-      <div class="col-md-6">
+      <div class="form-field">
+        <app-form-field
+          label="Área"
+          [control]="getSafeControl('areaId')"
+          type="select"
+          [options]="AreaOptions"
+          placeholder="No asignada">
+        </app-form-field>
+      </div>
+
+      <div class="form-field" style="grid-column: 1 / -1;">
+        <label for="crearLoginSwitch" style="margin-bottom: 0.5rem;">¿Desea crear login?</label>
+        <label class="switch">
+          <input
+            type="checkbox"
+            [(ngModel)]="crearLogin"
+            (ngModelChange)="actualizarValidadoresLogin()"
+            [ngModelOptions]="{ standalone: true }"
+            [disabled]="isEditMode && tieneLogin"
+            name="crearLoginSwitch"
+            id="crearLoginSwitch">
+          <span class="slider round"></span>
+        </label>
+      </div>
+
+      <div class="form-field" *ngIf="crearLogin">
         <app-form-field
           label="Usuario"
           [control]="getSafeControl('user')"
@@ -74,7 +99,7 @@
         </app-form-field>
       </div>
 
-      <div class="col-md-6">
+      <div class="form-field" *ngIf="crearLogin">
         <app-form-field
           label="Contraseña"
           [control]="getSafeControl('password')"
@@ -82,10 +107,15 @@
         </app-form-field>
       </div>
 
-    </div>
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="form.invalid">
+          Guardar
+        </button>
+      </div>
 
-    <div class="d-flex justify-content-end mt-4">
-      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar</button>
     </div>
   </form>
 </div>

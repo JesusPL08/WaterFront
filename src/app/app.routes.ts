@@ -56,6 +56,10 @@ export const routes: Routes = [
   {
     path: 'Comission',
     loadComponent: () => import('./pages/user-dashboard/Comissions/comissions.page').then(m => m.CommissionPage)
+  },
+  {
+    path: 'Area',
+    loadComponent: () => import('./pages/area/area.page').then(m => m.AreasPage)
   }
 
 ];

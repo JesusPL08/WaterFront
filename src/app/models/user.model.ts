@@ -7,6 +7,7 @@ export interface User {
   salaryId: number;
   hiringDate: string; // ISO format
   branchId: number | null;
+  areaId: number | null;
   createdAt?: string;
   updatedAt?: string;
 }

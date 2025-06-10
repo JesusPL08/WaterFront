@@ -12,6 +12,8 @@ import { CreateAttendancePage } from './attendance/create-attendance.page';
 import { CreateBonusPage } from './Bonus/create-bonus.page';
 import { CreatePenaltyChargePage } from './PenaltyCharge/create-penalty-charge.page';
 import { ViewRegisterPage } from './Register/view-register.page';
+import { AuthService } from '../../../services/auth.service';
+import { AuthUser } from '../../../models/auth-user.model';
 
 
 @Component({
@@ -33,12 +35,23 @@ export class AttendanceDashboardPage {
     private userService: UserService,
     private profileService: ProfileService,
     private modalService: NgbModal,
-    private dialog: MatDialog 
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
-    this.loadProfiles();
-  }
+  loggedUser!: AuthUser;
+
+ngOnInit(): void {
+  this.authService.getProfile().subscribe({
+    next: (user) => {
+      this.loggedUser = user;
+      this.loadProfiles();
+      console.log('Usuario logueado:', this.loggedUser);
+    },
+    error: () => alert('No se pudo cargar el perfil del usuario logueado')
+  });
+}
+
 
   loadProfiles(): void {
     this.profileService.getAll().subscribe((profiles) => {
@@ -47,18 +60,22 @@ export class AttendanceDashboardPage {
     });
   }
 
-  loadUsers(): void {
-    this.userService.getAllUsers().subscribe((res) => {
-      this.users = res.map((u) => {
-        const profile = this.profiles.find(p => p.id === u.profileId);
-        return {
-          ...u,
-          selected: false,
-          profileName: profile?.name || 'Sin perfil'
-        };
-      });
+loadUsers(): void {
+  this.userService.getAllUsers().subscribe((res) => {
+    const filteredUsers = this.loggedUser.profile.rank === 1
+      ? res
+      : res.filter(u => u.areaId === this.loggedUser.areaId);
+
+    this.users = filteredUsers.map((u) => {
+      const profile = this.profiles.find(p => p.id === u.profileId);
+      return {
+        ...u,
+        selected: false,
+        profileName: profile?.name || 'Sin perfil'
+      };
     });
-  }
+  });
+}
 
   toggleSelection(user: User & { selected?: boolean }): void {
     user.selected = !user.selected;

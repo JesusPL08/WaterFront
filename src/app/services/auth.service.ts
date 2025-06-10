@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { AuthUser } from '../models/auth-user.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = `${environment.apiBaseUrl}/auth/login`;
@@ -23,4 +24,7 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('access_token');
   }
+getProfile(): Observable<AuthUser> {
+  return this.http.get<AuthUser>(`${environment.apiBaseUrl}/auth/profile`);
+}
 }

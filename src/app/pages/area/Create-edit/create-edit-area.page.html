@@ -1,0 +1,21 @@
+<div class="modal-content p-4">
+  <h4 class="mb-4">{{ isEditMode ? 'Editar Área' : 'Crear Área' }}</h4>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-grid">
+      <div class="form-field">
+        <app-form-field
+        label="Nombre del Área"
+        [control]="getSafeControl('name')"
+        type="text">
+        </app-form-field>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
